@@ -20,6 +20,9 @@ body {
 :root {
     --el-border-radius-base: 2px;
     --el-dialog-padding-primary: 0;
+    --el-menu-base-level-padding: 20px;
+    --el-menu-item-height: 48px;
+    --el-base-padding: 12px;
 }
 
 .el-notification {
@@ -34,7 +37,7 @@ body {
 
 .el-dialog__header {
     border-bottom: 1px solid #d9d9d9;
-    padding: 12px;
+    padding: var(--el-base-padding);
 }
 
 .el-dialog__body {
@@ -47,8 +50,29 @@ body {
 
 .dialog-footer {
     border-top: 1px solid #d9d9d9;
-    padding: 12px;
+    padding: var(--el-base-padding);
 
+}
+
+.el-message-box {
+    border-radius: var(--el-border-radius-base);
+}
+
+.el-drawer__header {
+    padding: var(--el-base-padding);
+    margin-bottom: 0px;
+}
+
+.el-drawer__body .actions {
+    padding: 0 var(--el-base-padding);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.el-drawer__body .body {
+    padding: var(--el-base-padding);
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
 }
 
 /* switch */

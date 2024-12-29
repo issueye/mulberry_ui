@@ -3,10 +3,17 @@
     <div class="search-bar">
       <el-form ref="queryFormRef" :model="queryParams" :inline="true">
         <el-form-item label="关键字" prop="keywords" label-position="top">
-          <el-input v-model="queryParams.keywords" placeholder="名称/编码" clearable @keyup.enter="handleQuery" />
+          <el-input
+            v-model="queryParams.keywords"
+            placeholder="名称/编码"
+            clearable
+            @keyup.enter="handleQuery"
+          />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="search" @click="handleQuery">搜索</el-button>
+          <el-button type="primary" icon="search" @click="handleQuery"
+            >搜索</el-button
+          >
           <el-button icon="refresh" @click="handleResetQuery">重置</el-button>
         </el-form-item>
       </el-form>
@@ -14,27 +21,49 @@
 
     <div class="grow flex flex-col">
       <div class="mb-[10px]">
-        <el-button type="success" icon="plus" @click="handleAddClick">新增</el-button>
+        <el-button type="success" icon="plus" @click="handleAddClick"
+          >新增</el-button
+        >
       </div>
 
       <div class="grow w-full">
-        <d-table :columns="columns" :table-data="pageList" :page-config="pageConfig" usePagination highlight-current-row
-          stripe :loading="loading" empty-text="暂无数据">
+        <d-table
+          :columns="columns"
+          :table-data="pageList"
+          :page-config="pageConfig"
+          usePagination
+          highlight-current-row
+          stripe
+          :loading="loading"
+          empty-text="暂无数据"
+        >
           <template #use_version_route="{ scope }">
-            <el-tag :type="scope.row.use_version_route ? 'success' : 'danger'" size="small">
+            <el-tag
+              :type="scope.row.use_version_route ? 'success' : 'danger'"
+              size="small"
+            >
               {{ scope.row.use_version_route ? "使用" : "未使用" }}
             </el-tag>
           </template>
           <template #status="{ scope }">
-            <el-tag :type="scope.row.status ? 'success' : 'danger'" size="small">
+            <el-tag
+              :type="scope.row.status ? 'success' : 'danger'"
+              size="small"
+            >
               {{ scope.row.status ? "启用" : "停用" }}
             </el-tag>
           </template>
           <template #operation="{ scope }">
-            <el-button type="primary" link @click="handleEditClick(scope.row)">编辑</el-button>
+            <el-button type="primary" link @click="handleEditClick(scope.row)"
+              >编辑</el-button
+            >
             <el-divider direction="vertical" />
-            <el-button type="primary" link @click="handleModifyStatusClick(scope.row)">{{ scope.row.status ? "停用" : "启用"
-              }}</el-button>
+            <el-button
+              type="primary"
+              link
+              @click="handleModifyStatusClick(scope.row)"
+              >{{ scope.row.status ? "停用" : "启用" }}</el-button
+            >
             <el-divider direction="vertical" />
             <el-dropdown @command="handleCommand">
               <span class="flex items-center text-[--el-color-primary]">
@@ -42,10 +71,18 @@
               </span>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item :command="{ data: scope.row, type: 'upload' }">上传</el-dropdown-item>
-                  <el-dropdown-item :command="{ data: scope.row, type: 'copy' }">复制</el-dropdown-item>
-                  <el-dropdown-item :command="{ data: scope.row, type: 'del' }"
-                    class="text-[--el-color-danger]">删除</el-dropdown-item>
+                  <el-dropdown-item
+                    :command="{ data: scope.row, type: 'upload' }"
+                    >上传</el-dropdown-item
+                  >
+                  <el-dropdown-item :command="{ data: scope.row, type: 'copy' }"
+                    >复制</el-dropdown-item
+                  >
+                  <el-dropdown-item
+                    :command="{ data: scope.row, type: 'del' }"
+                    class="text-[--el-color-danger]"
+                    >删除</el-dropdown-item
+                  >
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -54,10 +91,17 @@
       </div>
     </div>
 
-    <Dialog v-model:visible="dialog.visible" v-model:form-data="formData" :operation-type="operationType"
-      @close="handleDialogClose" />
+    <Dialog
+      v-model:visible="dialog.visible"
+      v-model:form-data="formData"
+      :operation-type="operationType"
+      @close="handleDialogClose"
+    />
 
-    <UploadDialog v-model:visible="dialog.upload_visible" v-model:form-data="formData" />
+    <UploadDialog
+      v-model:visible="dialog.upload_visible"
+      v-model:form-data="formData"
+    />
   </div>
 </template>
 
@@ -70,7 +114,7 @@ import { toast } from "~/composables/util";
 import { storeToRefs } from "pinia";
 import { useProxyStore } from "~/store/proxy";
 import { nanoid } from "nanoid";
-import { copyText } from 'vue3-clipboard'
+import { copyText } from "vue3-clipboard";
 
 const dialog = reactive({
   visible: false,
@@ -260,10 +304,10 @@ const handleUploadClick = (value) => {
 
 /**
  * 复制
- * @param value 
+ * @param value
  */
 const handleCopyClick = (data) => {
-  console.log('value', data);
+  console.log("value", data);
   let port = data.port;
   let name = data.name;
   let use_version_route = data.use_version_route;
@@ -273,15 +317,15 @@ const handleCopyClick = (data) => {
 
   let str = "";
   if (port === 80) {
-    str = `http://${location.hostname}/${name}/`
+    str = `http://${location.hostname}/${name}/`;
   } else {
-    str = `http://${location.hostname}:${port}/${name}/`
+    str = `http://${location.hostname}:${port}/${name}/`;
   }
-  
+
   copyText(str, undefined, () => {
-    toast('复制成功');
-  })
-}
+    toast("复制成功");
+  });
+};
 
 const handleCommand = ({ data, type }) => {
   switch (type) {
