@@ -81,23 +81,21 @@
             :rules="computedRules"
             label-width="auto"
           >
-            <el-card shadow="never">
-              <el-form-item label="编码" prop="code">
-                <el-input v-model="formData.code" placeholder="请输入编码" />
-              </el-form-item>
+            <el-form-item label="编码" prop="code">
+              <el-input v-model="formData.code" placeholder="请输入编码" />
+            </el-form-item>
 
-              <el-form-item label="名称" prop="name">
-                <el-input v-model="formData.name" placeholder="请输入名称" />
-              </el-form-item>
+            <el-form-item label="名称" prop="name">
+              <el-input v-model="formData.name" placeholder="请输入名称" />
+            </el-form-item>
 
-              <el-form-item label="备注">
-                <el-input
-                  v-model="formData.remark"
-                  type="textarea"
-                  placeholder="请输入备注"
-                />
-              </el-form-item>
-            </el-card>
+            <el-form-item label="备注">
+              <el-input
+                v-model="formData.remark"
+                type="textarea"
+                placeholder="请输入备注"
+              />
+            </el-form-item>
           </el-form>
 
           <template #footer>
@@ -145,7 +143,7 @@ import { apiGetRoleMenuList, apiSaveRoleMenus } from "~/api/menu";
 import { flatten } from "~/utils/index";
 
 import { ElMessageBox, ElMessage } from "element-plus";
-import { toast } from '~/composables/util'
+import { toast } from "~/composables/util";
 
 import { ref, reactive, computed, onMounted } from "vue";
 const queryFormRef = ref();
@@ -361,7 +359,7 @@ const addData = async () => {
     await apiAddRole(formData);
     loading.value = false;
     dialog.visible = false;
-    toast('新增角色成功')
+    toast("新增角色成功");
     handleQuery();
   } catch (error) {
     loading.value = false;
@@ -374,7 +372,7 @@ const editData = async () => {
     await apiUpdateRole(formData);
     loading.value = false;
     dialog.visible = false;
-    toast('修改角色成功')
+    toast("修改角色成功");
     handleQuery();
   } catch (error) {
     loading.value = false;
@@ -403,7 +401,7 @@ function handleDeleteClick(value) {
   }).then(
     async () => {
       await apiDeleteRole(value.id);
-      toast('删除角色成功')
+      toast("删除角色成功");
       handleQuery();
     },
     () => {

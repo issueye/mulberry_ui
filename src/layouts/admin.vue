@@ -7,7 +7,7 @@
       class="flex"
       :style="{ height: `calc(100% - ${global.CARAMBOLA_HEADER_HEIGHT})` }"
     >
-      <el-aside :width="userStore.asideWidth">
+      <el-aside :width="userStore.asideWidth" class="shadow">
         <f-menu></f-menu>
       </el-aside>
       <div

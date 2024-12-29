@@ -18,7 +18,7 @@
     </el-tabs>
 
     <span
-      class="h-[32px] bg-white rounded ml-auto flex items-center justify-center px-2"
+      class="h-[32px] bg-white rounded-sm shadow ml-auto flex items-center justify-center px-2"
     >
       <el-dropdown @command="handleClose">
         <span class="el-dropdown-link">
@@ -47,6 +47,10 @@ const { activeTab, tabList, changeTab, removeTab, handleClose } = useTabList();
 </script>
 
 <style scoped>
+:deep(.el-tabs__nav-scroll) {
+  padding: 2px 0 2px 0;
+}
+
 :deep(.el-tabs__header) {
   border: 0 !important;
   @apply mb-0;
@@ -58,7 +62,7 @@ const { activeTab, tabList, changeTab, removeTab, handleClose } = useTabList();
   border: 0 !important;
   height: 32px;
   line-height: 32px;
-  @apply bg-white mx-1 rounded;
+  @apply bg-white mx-1 rounded-sm shadow;
 }
 :deep(.el-tabs__nav-next),
 :deep(.el-tabs__nav-prev) {

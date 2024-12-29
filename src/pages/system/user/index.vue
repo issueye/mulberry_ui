@@ -78,43 +78,35 @@
             :rules="computedRules"
             label-width="auto"
           >
-            <el-card shadow="never">
-              <el-form-item label="账户名" prop="username">
-                <el-input
-                  v-model="formData.username"
-                  placeholder="请输入账户名称"
-                />
-              </el-form-item>
+            <el-form-item label="账户名" prop="username">
+              <el-input
+                v-model="formData.username"
+                placeholder="请输入账户名称"
+              />
+            </el-form-item>
 
-              <el-form-item label="昵称" prop="nick_name">
-                <el-input
-                  v-model="formData.nick_name"
-                  placeholder="请输入昵称"
-                />
-              </el-form-item>
+            <el-form-item label="昵称" prop="nick_name">
+              <el-input v-model="formData.nick_name" placeholder="请输入昵称" />
+            </el-form-item>
 
-              <el-form-item label="角色" prop="role_code">
-                <el-select
-                  v-model="formData.role_code"
-                  placeholder="请选择角色"
-                >
-                  <el-option
-                    v-for="(item, index) in roleList"
-                    :key="index"
-                    :value="item.code"
-                    :label="item.name"
-                  />
-                </el-select>
-              </el-form-item>
-
-              <el-form-item label="备注">
-                <el-input
-                  v-model="formData.remark"
-                  type="textarea"
-                  placeholder="请输入备注"
+            <el-form-item label="角色" prop="role_code">
+              <el-select v-model="formData.role_code" placeholder="请选择角色">
+                <el-option
+                  v-for="(item, index) in roleList"
+                  :key="index"
+                  :value="item.code"
+                  :label="item.name"
                 />
-              </el-form-item>
-            </el-card>
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="备注">
+              <el-input
+                v-model="formData.remark"
+                type="textarea"
+                placeholder="请输入备注"
+              />
+            </el-form-item>
           </el-form>
 
           <template #footer>
@@ -142,7 +134,7 @@ import {
 import { apiGetRoleList } from "~/api/role";
 
 import { ElMessageBox, ElMessage } from "element-plus";
-import { toast } from '~/composables/util'
+import { toast } from "~/composables/util";
 
 import { ref, reactive, computed, onMounted } from "vue";
 
@@ -347,7 +339,7 @@ const addData = async () => {
     await apiAddUser(formData);
     loading.value = false;
     dialog.visible = false;
-    toast('添加用户成功')
+    toast("添加用户成功");
     handleQuery();
   } catch (error) {
     loading.value = false;
@@ -363,7 +355,7 @@ const editData = async () => {
     await apiUpdateUser(formData);
     loading.value = false;
     dialog.visible = false;
-    toast('修改用户成功')
+    toast("修改用户成功");
     handleQuery();
   } catch (error) {
     loading.value = false;
@@ -393,7 +385,7 @@ const handleDeleteClick = (value) => {
     async () => {
       const data = await apiDeleteUser(value.id);
       // console.log("data", data);
-      toast('删除用户成功')
+      toast("删除用户成功");
       handleQuery();
     },
     () => {

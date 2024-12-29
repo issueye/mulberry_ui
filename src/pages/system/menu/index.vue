@@ -76,53 +76,48 @@
             :rules="computedRules"
             label-width="auto"
           >
-            <el-card shadow="never">
-              <el-form-item label="编码" prop="code">
-                <el-input
-                  v-model="formData.code"
-                  :disabled="operationType === 1"
-                  placeholder="请输入编码"
-                />
-              </el-form-item>
-              <el-form-item label="名称" prop="name">
-                <el-input v-model="formData.name" placeholder="请输入名称" />
-              </el-form-item>
-              <el-form-item label="路径" prop="frontpath">
-                <el-input
-                  v-model="formData.frontpath"
-                  placeholder="请输入前端路径"
-                />
-              </el-form-item>
-              <el-form-item label="菜单级别" prop="level">
-                <el-select
-                  v-model="formData.level"
-                  placeholder="请选择菜单级别"
-                >
-                  <el-option :value="0" label="一级菜单" />
-                  <el-option :value="1" label="二级菜单" />
-                </el-select>
-              </el-form-item>
-              <el-form-item
-                label="父级菜单"
-                prop="parentCode"
-                v-if="formData.level === 1"
+            <el-form-item label="编码" prop="code">
+              <el-input
+                v-model="formData.code"
+                :disabled="operationType === 1"
+                placeholder="请输入编码"
+              />
+            </el-form-item>
+            <el-form-item label="名称" prop="name">
+              <el-input v-model="formData.name" placeholder="请输入名称" />
+            </el-form-item>
+            <el-form-item label="路径" prop="frontpath">
+              <el-input
+                v-model="formData.frontpath"
+                placeholder="请输入前端路径"
+              />
+            </el-form-item>
+            <el-form-item label="菜单级别" prop="level">
+              <el-select v-model="formData.level" placeholder="请选择菜单级别">
+                <el-option :value="0" label="一级菜单" />
+                <el-option :value="1" label="二级菜单" />
+              </el-select>
+            </el-form-item>
+            <el-form-item
+              label="父级菜单"
+              prop="parentCode"
+              v-if="formData.level === 1"
+            >
+              <el-select
+                v-model="formData.parent_code"
+                placeholder="请选择父级菜单"
               >
-                <el-select
-                  v-model="formData.parent_code"
-                  placeholder="请选择父级菜单"
-                >
-                  <el-option
-                    v-for="(item, index) in CatalogData"
-                    :value="item.code"
-                    :label="item.name"
-                    :key="index"
-                  />
-                </el-select>
-              </el-form-item>
-              <el-form-item label="图标" prop="icon">
-                <el-icon-picker v-model="formData.icon" width="520px" />
-              </el-form-item>
-            </el-card>
+                <el-option
+                  v-for="(item, index) in CatalogData"
+                  :value="item.code"
+                  :label="item.name"
+                  :key="index"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="图标" prop="icon">
+              <icon-picker v-model="formData.icon" width="520px" />
+            </el-form-item>
           </el-form>
 
           <template #footer>
@@ -149,7 +144,7 @@ import {
 } from "~/api/menu";
 
 import { ElMessageBox, ElMessage } from "element-plus";
-import { toast } from '~/composables/util'
+import { toast } from "~/composables/util";
 
 import { ref, reactive, computed, onMounted } from "vue";
 
@@ -354,7 +349,7 @@ const addData = async () => {
     await apiAddMenu(formData);
     loading.value = false;
     dialog.visible = false;
-    toast('添加菜单信息成功')
+    toast("添加菜单信息成功");
     handleQuery();
   } catch (error) {
     loading.value = false;
@@ -371,7 +366,7 @@ const editData = async () => {
     await apiUpdateMenu(formData);
     loading.value = false;
     dialog.visible = false;
-    toast('修改菜单信息成功')
+    toast("修改菜单信息成功");
     handleQuery();
   } catch (error) {
     loading.value = false;
@@ -407,7 +402,7 @@ const handleDeleteClick = (value) => {
     async () => {
       // 调用接口
       await apiDeleteMenu(value.id);
-      toast('删除菜单信息成功')
+      toast("删除菜单信息成功");
       handleQuery();
     },
     () => {

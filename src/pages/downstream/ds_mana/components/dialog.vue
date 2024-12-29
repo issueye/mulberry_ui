@@ -1,16 +1,30 @@
 <template>
   <!--弹窗-->
-  <el-dialog v-model="visible" :title="dialog.title" width="500px" @close="handleClose" @open="handleOpen"
-    :close-on-click-modal="false">
-    <el-form ref="dataFormRef" :model="formData" :rules="computedRules" label-width="auto">
-      <el-card shadow="never">
-        <el-form-item label="端口号" prop="port">
-          <el-input v-model.number="formData.port" placeholder="请输入端口号" />
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input v-model="formData.remark" placeholder="请输入备注" type="textarea" :rows="4" />
-        </el-form-item>
-      </el-card>
+  <el-dialog
+    v-model="visible"
+    :title="dialog.title"
+    width="500px"
+    @close="handleClose"
+    @open="handleOpen"
+    :close-on-click-modal="false"
+  >
+    <el-form
+      ref="dataFormRef"
+      :model="formData"
+      :rules="computedRules"
+      label-width="auto"
+    >
+      <el-form-item label="端口号" prop="port">
+        <el-input v-model.number="formData.port" placeholder="请输入端口号" />
+      </el-form-item>
+      <el-form-item label="备注">
+        <el-input
+          v-model="formData.remark"
+          placeholder="请输入备注"
+          type="textarea"
+          :rows="4"
+        />
+      </el-form-item>
     </el-form>
 
     <template #footer>
@@ -88,7 +102,7 @@ const handleOpen = () => {
       dialog.title = "编辑端口号";
       break;
   }
-}
+};
 
 /**
  * 提交表单按钮
@@ -119,7 +133,7 @@ const addData = async () => {
     await apiAddPort(formData.value);
     dialog.loading = false;
     toast("新增端口号信息成功");
-  } catch (error) { }
+  } catch (error) {}
 };
 
 /**
@@ -132,6 +146,6 @@ const editData = async () => {
     await apiUpdatePort(formData.value);
     dialog.loading = false;
     toast("修改端口号信息成功");
-  } catch (error) { }
+  } catch (error) {}
 };
 </script>

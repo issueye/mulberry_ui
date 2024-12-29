@@ -14,89 +14,87 @@
       :rules="computedRules"
       label-width="auto"
     >
-      <el-card shadow="never">
-        <el-form-item label="代理路由" prop="name">
-          <el-input v-model="formData.name" placeholder="请输入代理路由" />
-        </el-form-item>
+      <el-form-item label="代理路由" prop="name">
+        <el-input v-model="formData.name" placeholder="请输入代理路由" />
+      </el-form-item>
 
-        <el-form-item label="目标路由" prop="target_route">
-          <el-input
-            v-model="formData.target_route"
-            placeholder="请输入目标路由"
+      <el-form-item label="目标路由" prop="target_route">
+        <el-input
+          v-model="formData.target_route"
+          placeholder="请输入目标路由"
+        />
+      </el-form-item>
+
+      <el-form-item label="目标服务" prop="target_id">
+        <el-select
+          v-model.number="formData.target_id"
+          placeholder="请选择目标服务"
+        >
+          <el-option
+            v-for="(item, index) in targetDataList"
+            :key="index"
+            :label="item.title"
+            :value="item.id"
           />
-        </el-form-item>
+        </el-select>
+      </el-form-item>
 
-        <el-form-item label="目标服务" prop="target_id">
-          <el-select
-            v-model.number="formData.target_id"
-            placeholder="请选择目标服务"
-          >
-            <el-option
-              v-for="(item, index) in targetDataList"
-              :key="index"
-              :label="item.title"
-              :value="item.id"
+      <el-form-item label="WS" prop="is_ws">
+        <el-switch
+          v-model="formData.is_ws"
+          :active-value="true"
+          :inactive-value="false"
+          size="small"
+        />
+      </el-form-item>
+
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="请求方法" prop="method">
+            <el-select
+              v-model.number="formData.method"
+              placeholder="请选择请求方法"
+            >
+              <el-option
+                v-for="(item, index) in methods"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="端口号" prop="port">
+            <el-input
+              v-model.number="formData.port"
+              :disabled="true"
+              placeholder="请输入端口号"
             />
-          </el-select>
-        </el-form-item>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
-        <el-form-item label="WS" prop="is_ws">
-          <el-switch
-            v-model="formData.is_ws"
-            :active-value="true"
-            :inactive-value="false"
-            size="small"
-          />
-        </el-form-item>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="序号" prop="order">
+            <el-input-number
+              v-model.number="formData.order"
+              controls-position="right"
+              placeholder="请输入序号"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
 
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="请求方法" prop="method">
-              <el-select
-                v-model.number="formData.method"
-                placeholder="请选择请求方法"
-              >
-                <el-option
-                  v-for="(item, index) in methods"
-                  :key="index"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="端口号" prop="port">
-              <el-input
-                v-model.number="formData.port"
-                :disabled="true"
-                placeholder="请输入端口号"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="序号" prop="order">
-              <el-input-number
-                v-model.number="formData.order"
-                controls-position="right"
-                placeholder="请输入序号"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-form-item label="备注">
-          <el-input
-            v-model="formData.remark"
-            placeholder="请输入备注"
-            type="textarea"
-            :rows="4"
-          />
-        </el-form-item>
-      </el-card>
+      <el-form-item label="备注">
+        <el-input
+          v-model="formData.remark"
+          placeholder="请输入备注"
+          type="textarea"
+          :rows="4"
+        />
+      </el-form-item>
     </el-form>
 
     <template #footer>

@@ -1,17 +1,65 @@
-html, body {
+html,
+body {
     height: 100%;
 }
 
 .el-tooltip__trigger:focus-visible {
     outline: unset;
-} 
- 
+}
+
 /*或者是下面这个*/
- 
- .el-tooltip__trigger:first-child:focus-visible {
+
+.el-tooltip__trigger:first-child:focus-visible {
     outline: unset;
 }
 
 .el-dropdown {
-    vertical-align:middle;
+    vertical-align: middle;
+}
+
+:root {
+    --el-border-radius-base: 2px;
+    --el-dialog-padding-primary: 0;
+}
+
+.el-notification {
+    border-radius: var(--el-border-radius-base);
+    /* 调整为你需要的圆角值 */
+}
+
+/* 弹窗 */
+.el-dialog {
+    padding: 0px;
+}
+
+.el-dialog__header {
+    border-bottom: 1px solid #d9d9d9;
+    padding: 12px;
+}
+
+.el-dialog__body {
+    padding: 24px 24px 12px 24px;
+}
+
+.el-dialog__footer {
+    padding-top: 0px;
+}
+
+.dialog-footer {
+    border-top: 1px solid #d9d9d9;
+    padding: 12px;
+
+}
+
+/* switch */
+.el-switch__core {
+    border-radius: var(--el-border-radius-base) !important;
+}
+
+.el-switch__action {
+    border-radius: var(--el-border-radius-base) !important;
+}
+
+.el-tag {
+    border-radius: var(--el-border-radius-base);
 }

@@ -1,57 +1,92 @@
 <template>
   <!--弹窗-->
-  <el-dialog v-model="visible" :title="dialog.title" width="700px" @close="handleClose" @open="handleOpen"
-    :close-on-click-modal="false">
-    <el-form ref="dataFormRef" :model="formData" :rules="computedRules" label-width="auto">
-      <el-card shadow="never">
-        <el-form-item label="标题" prop="title">
-          <el-input v-model="formData.title" placeholder="请输入标题" />
-        </el-form-item>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="名称" prop="name">
-              <el-input v-model="formData.name" placeholder="请输入名称" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="版本号" prop="version">
-              <!-- <el-input v-model="formData.version" placeholder="请输入版本号" /> -->
-              <el-select v-model="formData.version" placeholder="请输入版本号">
-                <el-option v-for="(item, index) in versionList" :key="index" :label="item.version" :value="item.version" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
+  <el-dialog
+    v-model="visible"
+    :title="dialog.title"
+    width="700px"
+    @close="handleClose"
+    @open="handleOpen"
+    :close-on-click-modal="false"
+  >
+    <el-form
+      ref="dataFormRef"
+      :model="formData"
+      :rules="computedRules"
+      label-width="auto"
+    >
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="formData.title" placeholder="请输入标题" />
+      </el-form-item>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="名称" prop="name">
+            <el-input v-model="formData.name" placeholder="请输入名称" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="版本号" prop="version">
+            <!-- <el-input v-model="formData.version" placeholder="请输入版本号" /> -->
+            <el-select v-model="formData.version" placeholder="请输入版本号">
+              <el-option
+                v-for="(item, index) in versionList"
+                :key="index"
+                :label="item.version"
+                :value="item.version"
+              />
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="产品编码" prop="product_code">
-              <el-input v-model="formData.product_code" :disabled="true" placeholder="请输入产品编码" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="端口号" prop="port">
-              <el-input v-model.number="formData.port" :disabled="true" placeholder="请输入端口号" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="状态" prop="status">
-              <el-switch v-model="formData.status" :active-value="true" :inactive-value="false" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="版本路由" prop="use_version_route">
-              <el-switch v-model="formData.use_version_route" :active-value="1" :inactive-value="0" />
-            </el-form-item>
-          </el-col>
-        </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="产品编码" prop="product_code">
+            <el-input
+              v-model="formData.product_code"
+              :disabled="true"
+              placeholder="请输入产品编码"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="端口号" prop="port">
+            <el-input
+              v-model.number="formData.port"
+              :disabled="true"
+              placeholder="请输入端口号"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="状态" prop="status">
+            <el-switch
+              v-model="formData.status"
+              :active-value="true"
+              :inactive-value="false"
+            />
+          </el-form-item>
+        </el-col>
+        <!-- <el-col :span="12">
+          <el-form-item label="版本路由" prop="use_version_route">
+            <el-switch
+              v-model="formData.use_version_route"
+              :active-value="1"
+              :inactive-value="0"
+            />
+          </el-form-item>
+        </el-col> -->
+      </el-row>
 
-        <el-form-item label="备注">
-          <el-input v-model="formData.remark" placeholder="请输入备注" type="textarea" :rows="4" />
-        </el-form-item>
-      </el-card>
+      <el-form-item label="备注">
+        <el-input
+          v-model="formData.remark"
+          placeholder="请输入备注"
+          type="textarea"
+          :rows="4"
+        />
+      </el-form-item>
     </el-form>
 
     <template #footer>
@@ -144,16 +179,13 @@ const handleOpen = () => {
       getVersionList(formData.id);
       break;
   }
-
-  
 };
 
 const getVersionList = async () => {
   try {
     let res = await apiGetVersionList(formData.value.id);
     versionList.value = res;
-  } catch (error) {
-  }
+  } catch (error) {}
 };
 
 /**
@@ -185,7 +217,7 @@ const addData = async () => {
     await apiAddPage(formData.value);
     dialog.loading = false;
     toast("新增端口号信息成功");
-  } catch (error) { }
+  } catch (error) {}
 };
 
 /**
@@ -198,6 +230,6 @@ const editData = async () => {
     await apiUpdatePage(formData.value);
     dialog.loading = false;
     toast("修改端口号信息成功");
-  } catch (error) { }
+  } catch (error) {}
 };
 </script>

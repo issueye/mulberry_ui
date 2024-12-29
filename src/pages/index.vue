@@ -27,7 +27,7 @@
 
       <!-- 数据展示部分 -->
       <el-col :span="6" v-for="(item, index) in panels" :key="index">
-        <el-card shadow="hover" class="border-0">
+        <el-card shadow="hover">
           <div class="flex">
             <div class="bg-gray-100 p-3 rounded-md">
               <el-icon :size="60" :class="item.color">

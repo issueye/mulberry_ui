@@ -33,20 +33,26 @@ const iconNavs = [
   {
     icon: "message-box",
     color: "text-violet-500",
-    title: "客户端管理",
-    path: "/task/client_mana",
+    title: "代理管理",
+    path: "/downstream/ds_mana",
+  },
+  {
+    icon: "message-box",
+    color: "text-violet-500",
+    title: "服务管理",
+    path: "/downstream/target_mana",
   },
   {
     icon: "grid",
     color: "text-violet-500",
-    title: "数据库管理",
-    path: "/task/db_mana",
+    title: "转发查询",
+    path: "/downstream/traffic_query",
   },
   {
     icon: "histogram",
     color: "text-fuchsia-500",
-    title: "任务管理",
-    path: "/task/task_mana",
+    title: "系统设置",
+    path: "/system/setting",
   },
 ];
 

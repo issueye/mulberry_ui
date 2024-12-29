@@ -14,29 +14,27 @@
       :rules="computedRules"
       label-width="auto"
     >
-      <el-card shadow="never">
-        <el-form-item label="名称" prop="title">
-          <el-input v-model="formData.title" placeholder="请输入名称" />
-        </el-form-item>
-        <el-form-item label="地址" prop="name">
-          <el-input v-model="formData.name" placeholder="请输入地址" />
-        </el-form-item>
-        <el-form-item label="状态" prop="status">
-          <el-switch
-            v-model="formData.status"
-            :active-value="true"
-            :inactive-value="false"
-          />
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input
-            v-model="formData.remark"
-            placeholder="请输入备注"
-            type="textarea"
-            :rows="4"
-          />
-        </el-form-item>
-      </el-card>
+      <el-form-item label="名称" prop="title">
+        <el-input v-model="formData.title" placeholder="请输入名称" />
+      </el-form-item>
+      <el-form-item label="地址" prop="name">
+        <el-input v-model="formData.name" placeholder="请输入地址" />
+      </el-form-item>
+      <el-form-item label="状态" prop="status">
+        <el-switch
+          v-model="formData.status"
+          :active-value="true"
+          :inactive-value="false"
+        />
+      </el-form-item>
+      <el-form-item label="备注">
+        <el-input
+          v-model="formData.remark"
+          placeholder="请输入备注"
+          type="textarea"
+          :rows="4"
+        />
+      </el-form-item>
     </el-form>
 
     <template #footer>

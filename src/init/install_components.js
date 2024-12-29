@@ -9,7 +9,7 @@ import VueClipboard from 'vue3-clipboard'
 export function installComponents(app) {
     app.component('BasePage', BasePage);
     app.component('DTable', DynamicTable);
-    app.component('ElIconPicker', ElIconPicker);
+    app.component('IconPicker', ElIconPicker);
 }
 
 export function installElementIcons(app) {

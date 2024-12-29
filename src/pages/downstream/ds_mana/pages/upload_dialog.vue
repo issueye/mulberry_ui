@@ -14,44 +14,42 @@
       :rules="computedRules"
       label-width="auto"
     >
-      <el-card shadow="never">
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="产品编码" prop="product_code">
-              <el-input
-                v-model="formData.product_code"
-                :disabled="true"
-                placeholder="请输入产品编码"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="端口号" prop="port">
-              <el-input
-                v-model.number="formData.port"
-                :disabled="true"
-                placeholder="请输入端口号"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item label="版本号" prop="version">
-          <el-input v-model="formData.version" placeholder="请输入版本号" />
-        </el-form-item>
-        <el-form-item label="文件">
-          <el-upload
-            drag
-            :file-list="fileList"
-            :auto-upload="true"
-            :on-change="handleFileChange"
-            class="w-full"
-            :http-request="handleUpload"
-          >
-            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-            <div class="el-upload__text">拖动文件或 <em>点击上传</em></div>
-          </el-upload>
-        </el-form-item>
-      </el-card>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="产品编码" prop="product_code">
+            <el-input
+              v-model="formData.product_code"
+              :disabled="true"
+              placeholder="请输入产品编码"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="端口号" prop="port">
+            <el-input
+              v-model.number="formData.port"
+              :disabled="true"
+              placeholder="请输入端口号"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="版本号" prop="version">
+        <el-input v-model="formData.version" placeholder="请输入版本号" />
+      </el-form-item>
+      <el-form-item label="文件">
+        <el-upload
+          drag
+          :file-list="fileList"
+          :auto-upload="true"
+          :on-change="handleFileChange"
+          class="w-full"
+          :http-request="handleUpload"
+        >
+          <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+          <div class="el-upload__text">拖动文件或 <em>点击上传</em></div>
+        </el-upload>
+      </el-form-item>
     </el-form>
 
     <template #footer>
@@ -65,7 +63,7 @@
 
 <script setup>
 import { apiUploadFile } from "~/api/user";
-import { apiSaveVersion } from '~/api/page';
+import { apiSaveVersion } from "~/api/page";
 import { reactive, ref, toRefs, computed } from "vue";
 
 import { toast } from "~/composables/util";
@@ -156,7 +154,7 @@ const handleSubmitClick = async () => {
         path: formData.value.path,
       };
 
-      console.log('params', params);
+      console.log("params", params);
 
       await apiSaveVersion(params);
 
