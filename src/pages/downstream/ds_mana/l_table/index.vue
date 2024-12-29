@@ -1,7 +1,7 @@
 <template>
   <div class="search-bar">
     <el-form ref="queryFormRef" :model="queryParams" :inline="true">
-      <el-form-item label="关键字" prop="keywords">
+      <el-form-item prop="keywords">
         <el-input
           v-model="queryParams.keywords"
           placeholder="名称/编码"
@@ -13,18 +13,14 @@
         <el-button type="primary" icon="search" @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="refresh" @click="handleResetQuery">重置</el-button>
+        <el-button type="success" icon="plus" @click="handleAddClick"
+          >新增</el-button
+        >
       </el-form-item>
     </el-form>
   </div>
 
   <div class="grow flex flex-col">
-    <div class="mb-[10px]">
-      <el-button type="success" icon="plus" @click="handleAddClick"
-        >新增</el-button
-      >
-    </div>
-
     <div class="grow">
       <d-table
         :columns="columns"
@@ -183,15 +179,6 @@ const pageConfig = reactive({
  */
 const handleQuery = () => {
   getData();
-};
-
-/**
- * 重置查询
- */
-const handleResetQuery = () => {
-  queryFormRef.value.resetFields();
-  pageConfig.currentPage = 1;
-  handleQuery();
 };
 
 /**

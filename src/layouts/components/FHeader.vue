@@ -107,13 +107,7 @@
     destroyOnClose
     @submit="onSubmit"
   >
-    <el-form
-      ref="formRef"
-      :rules="rules"
-      :model="form"
-      label-width="80px"
-      size="small"
-    >
+    <el-form ref="formRef" :rules="rules" :model="form" label-width="80px">
       <el-form-item prop="oldpassword" label="旧密码">
         <el-input
           v-model="form.oldpassword"

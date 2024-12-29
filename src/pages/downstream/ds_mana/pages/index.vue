@@ -2,7 +2,7 @@
   <div class="w-full h-full">
     <div class="search-bar">
       <el-form ref="queryFormRef" :model="queryParams" :inline="true">
-        <el-form-item label="关键字" prop="keywords" label-position="top">
+        <el-form-item label="关键字" prop="keywords" label-position="left">
           <el-input
             v-model="queryParams.keywords"
             placeholder="名称/编码"

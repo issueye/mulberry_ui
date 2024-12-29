@@ -70,9 +70,13 @@ body {
 }
 
 .el-drawer__body .body {
-    padding: var(--el-base-padding);
+    padding: 24px 24px 12px 24px;
     border-top: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9;
+}
+
+.el-menu-item.is-active {
+    background-color: var(--el-color-primary-light-7);
 }
 
 /* switch */
