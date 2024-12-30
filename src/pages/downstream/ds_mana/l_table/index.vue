@@ -36,13 +36,13 @@
         <template #port="{ scope }">
           <div class="flex items-center">
             <span class="mr-2">{{ scope.row.port }}</span>
-            <el-tag type="danger" size="small" v-if="scope.row.use_gzip"
+            <el-tag type="danger" v-if="scope.row.use_gzip"
               >GZIP</el-tag
             >
           </div>
         </template>
         <template #status="{ scope }">
-          <el-tag :type="scope.row.status ? 'success' : 'danger'" size="small">
+          <el-tag :type="scope.row.status ? 'success' : 'danger'">
             {{ scope.row.status ? "启用" : "停用" }}
           </el-tag>
         </template>
@@ -137,18 +137,13 @@ const columns = [
     prop: "port",
     label: "端口号",
     slot: true,
-    attrs: { width: 110, showOverflowTooltip: true, fixed: "left" },
-  },
-  {
-    prop: "remark",
-    label: "备注",
-    attrs: { minWidth: 150, showOverflowTooltip: true },
+    attrs: { minWidth: 110, showOverflowTooltip: true, fixed: "left" },
   },
   {
     prop: "status",
     label: "状态",
     slot: true,
-    attrs: { width: 65, fixed: "right" },
+    attrs: { width: 70, fixed: "right" },
   },
   {
     prop: "operation",

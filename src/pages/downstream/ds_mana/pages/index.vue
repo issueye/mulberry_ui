@@ -172,7 +172,7 @@ const columns = [
     prop: "status",
     label: "状态",
     slot: true,
-    attrs: { width: 100, fixed: "right" },
+    attrs: { width: 70, fixed: "right" },
   },
   {
     prop: "operation",

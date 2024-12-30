@@ -137,7 +137,7 @@ const columns = [
     prop: "status_code",
     label: "状态",
     slot: true,
-    attrs: { width: 100, showOverflowTooltip: true },
+    attrs: { width: 70, showOverflowTooltip: true },
   },
   {
     prop: "res_body",

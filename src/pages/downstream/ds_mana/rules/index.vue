@@ -38,22 +38,22 @@
       >
         <template #rule="{ scope }">
           <div class="flex items-center">
-            <el-tag type="primary" size="small" class="mr-2">
+            <el-tag type="primary" class="mr-2">
               {{ scope.row.is_ws ? "WS" : "HTTP" }}://{{ scope.row.port }}
             </el-tag>
-            <el-tag type="warning" size="small" class="flex items-center">
+            <el-tag type="warning" class="flex items-center">
               {{ scope.row.name }} <el-icon><CaretRight /></el-icon>
               {{ scope.row.target_route }}
             </el-tag>
           </div>
         </template>
         <template #method="{ scope }">
-          <el-tag :type="getMethod(scope.row.method).type" size="small">
+          <el-tag :type="getMethod(scope.row.method).type">
             {{ getMethod(scope.row.method).value }}
           </el-tag>
         </template>
         <template #status="{ scope }">
-          <el-tag :type="scope.row.status ? 'success' : 'danger'" size="small">
+          <el-tag :type="scope.row.status ? 'success' : 'danger'">
             {{ scope.row.status ? "启用" : "停用" }}
           </el-tag>
         </template>

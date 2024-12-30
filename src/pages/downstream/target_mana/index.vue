@@ -23,7 +23,7 @@
             <d-table :columns="columns" :table-data="tableData" :page-config="pageConfig" usePagination
               highlight-current-row stripe :loading="loading" empty-text="暂无数据">
               <template #status="{ scope }">
-                <el-tag :type="scope.row.status ? 'success' : 'danger'" :disabled="true" size="small">
+                <el-tag :type="scope.row.status ? 'success' : 'danger'" :disabled="true">
                   {{ scope.row.status ? "启用" : "停用" }}
                 </el-tag>
               </template>
@@ -106,7 +106,7 @@ const columns = [
     prop: "status",
     label: "状态",
     slot: true,
-    attrs: { width: 150, showOverflowTooltip: true },
+    attrs: { width: 70, showOverflowTooltip: true },
   },
   {
     prop: "operation",

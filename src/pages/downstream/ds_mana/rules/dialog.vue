@@ -44,7 +44,6 @@
           v-model="formData.is_ws"
           :active-value="true"
           :inactive-value="false"
-          size="small"
         />
       </el-form-item>
 

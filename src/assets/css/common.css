@@ -20,9 +20,13 @@ body {
 :root {
     --el-border-radius-base: 2px;
     --el-dialog-padding-primary: 0;
-    --el-menu-base-level-padding: 20px;
-    --el-menu-item-height: 48px;
-    --el-base-padding: 12px;
+    --el-menu-base-level-padding: 18px;
+    --el-menu-item-height: 46px;
+    --el-base-padding: 8px;
+    --el-dialog-title-font-size: 16px;
+    --el-dialog-title-font-weight: 600;
+    --el-body-padding: 24px;
+    --el-body-haff-padding: 12px;
 }
 
 .el-notification {
@@ -35,13 +39,19 @@ body {
     padding: 0px;
 }
 
+.el-dialog__title{
+    font-size: var(--el-dialog-title-font-size);
+    font-weight: var(--el-dialog-title-font-weight);
+    color: var(--el-color-primary);
+}
+
 .el-dialog__header {
     border-bottom: 1px solid #d9d9d9;
     padding: var(--el-base-padding);
 }
 
 .el-dialog__body {
-    padding: 24px 24px 12px 24px;
+    padding: var(--el-body-padding) var(--el-body-padding) var(--el-body-haff-padding) var(--el-body-padding);
 }
 
 .el-dialog__footer {
@@ -70,13 +80,17 @@ body {
 }
 
 .el-drawer__body .body {
-    padding: 24px 24px 12px 24px;
+    padding: var(--el-body-padding) var(--el-body-padding) var(--el-body-haff-padding) var(--el-body-padding);
     border-top: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9;
 }
 
 .el-menu-item.is-active {
     background-color: var(--el-color-primary-light-7);
+}
+
+.el-sub-menu {
+    border-bottom: 1px solid #d9d9d9;
 }
 
 /* switch */
