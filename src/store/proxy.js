@@ -9,6 +9,7 @@ export const useProxyStore = defineStore(
     'proxy',
     () => {
         const selectPort = ref(0)
+        const indexPort = ref(0)
         const pageList = ref([])
         const ruleList = ref([])
         const GZList = ref([])
@@ -71,13 +72,14 @@ export const useProxyStore = defineStore(
 
         return {
             selectPort,
+            indexPort,
             pageList,
             ruleList,
             GZList,
-            getData,
-
             methods,
-            types
+            types,
+
+            getData,
         }
     },
     {

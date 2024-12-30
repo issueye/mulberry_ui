@@ -32,6 +32,7 @@ service.interceptors.response.use(
         const code = response.data.code;
         if (code != 200) {
             toast(response.data.message, "error")
+            return Promise.reject()
         }
 
         return response.data.data;

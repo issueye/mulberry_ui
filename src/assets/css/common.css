@@ -21,12 +21,14 @@ body {
     --el-border-radius-base: 2px;
     --el-dialog-padding-primary: 0;
     --el-menu-base-level-padding: 18px;
-    --el-menu-item-height: 46px;
+    --el-menu-item-height: 44px;
+    --el-menu-sub-item-height: 44px;
     --el-base-padding: 8px;
+    --el-base-margin: 8px;
     --el-dialog-title-font-size: 16px;
     --el-dialog-title-font-weight: 600;
     --el-body-padding: 24px;
-    --el-body-haff-padding: 12px;
+    --el-body-half-padding: 12px;
 }
 
 .el-notification {
@@ -39,10 +41,11 @@ body {
     padding: 0px;
 }
 
-.el-dialog__title{
+.el-dialog__title {
     font-size: var(--el-dialog-title-font-size);
     font-weight: var(--el-dialog-title-font-weight);
     color: var(--el-color-primary);
+    margin-left: var(--el-base-margin);
 }
 
 .el-dialog__header {
@@ -51,7 +54,7 @@ body {
 }
 
 .el-dialog__body {
-    padding: var(--el-body-padding) var(--el-body-padding) var(--el-body-haff-padding) var(--el-body-padding);
+    padding: var(--el-body-padding) var(--el-body-padding) var(--el-body-half-padding) var(--el-body-padding);
 }
 
 .el-dialog__footer {
@@ -80,11 +83,12 @@ body {
 }
 
 .el-drawer__body .body {
-    padding: var(--el-body-padding) var(--el-body-padding) var(--el-body-haff-padding) var(--el-body-padding);
+    padding: var(--el-body-padding) var(--el-body-padding) var(--el-body-half-padding) var(--el-body-padding);
     border-top: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9;
 }
 
+/* 菜单 */
 .el-menu-item.is-active {
     background-color: var(--el-color-primary-light-7);
 }

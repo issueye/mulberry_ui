@@ -145,12 +145,6 @@ const columns = [
     slot: true,
     attrs: { minWidth: 200, showOverflowTooltip: true },
   },
-  {
-    prop: "operation",
-    label: "操作",
-    slot: true,
-    attrs: { width: 140, fixed: "right" },
-  },
 ];
 
 /**

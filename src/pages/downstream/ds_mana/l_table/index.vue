@@ -36,9 +36,7 @@
         <template #port="{ scope }">
           <div class="flex items-center">
             <span class="mr-2">{{ scope.row.port }}</span>
-            <el-tag type="danger" v-if="scope.row.use_gzip"
-              >GZIP</el-tag
-            >
+            <el-tag type="danger" v-if="scope.row.use_gzip">GZIP</el-tag>
           </div>
         </template>
         <template #status="{ scope }">
@@ -119,7 +117,7 @@ const dialog = reactive({
 });
 
 const proxyStore = useProxyStore();
-const { selectPort } = storeToRefs(proxyStore);
+const { selectPort, indexPort } = storeToRefs(proxyStore);
 
 const loading = ref(false);
 const operationType = ref(0); // 0:新增 1:编辑
@@ -247,6 +245,7 @@ const handleStopClick = async (value) => {
 
 const handleRowClick = (row) => {
   selectPort.value = row.port;
+  indexPort.value = row.port;
   proxyStore.getData();
 };
 
@@ -256,9 +255,10 @@ const handleDeleteClick = async (value) => {
     await apiDeletePort(value.id);
     loading.value = false;
     toast("删除成功");
+    indexPort.value = 0;
     getData();
+    proxyStore.getData();
   } catch (error) {
-    toast("修改失败", "error");
   } finally {
     loading.value = false;
   }
@@ -272,7 +272,6 @@ const handleReloadClick = async (value) => {
     toast("重载成功");
     getData();
   } catch (error) {
-    toast("修改失败", "error");
   } finally {
     loading.value = false;
   }
@@ -285,7 +284,6 @@ const handleUseGZClick = async (value) => {
     toast("修改成功");
     getData();
   } catch (error) {
-    toast("修改失败", "error");
   } finally {
     loading.value = false;
   }
@@ -331,12 +329,3 @@ onMounted(() => {
   getData();
 });
 </script>
-
-
-[Window Title]
-Visual Studio Code
-
-[Content]
-Git: warning: in the working copy of 'server/go.work.sum', LF will be replaced by CRLF the next time Git touches it
-
-[打开 GIT 日志] [显示命令输出] [取消]

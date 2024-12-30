@@ -21,7 +21,11 @@
 
     <div class="grow flex flex-col">
       <div class="mb-[10px]">
-        <el-button type="success" icon="plus" @click="handleAddClick"
+        <el-button
+          type="success"
+          :disabled="indexPort === 0"
+          icon="plus"
+          @click="handleAddClick"
           >新增</el-button
         >
       </div>
@@ -122,7 +126,7 @@ const dialog = reactive({
 });
 
 const proxyStore = useProxyStore();
-const { selectPort, pageList } = storeToRefs(proxyStore);
+const { selectPort, indexPort, pageList } = storeToRefs(proxyStore);
 
 const queryFormRef = ref(null);
 const queryParams = reactive({
@@ -224,6 +228,7 @@ const handleResetQuery = () => {
  */
 const handleAddClick = () => {
   operationType.value = 0;
+  if (selectPort.port <= 0) toast("请选择端口号", "error");
   resetValue();
   dialog.visible = true;
 };
