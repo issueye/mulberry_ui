@@ -42,7 +42,6 @@ const disabled = ref(true);
 const formData = reactive({
   mode: "debug",
   port: "",
-  client_path: "",
 });
 
 onMounted(() => {
@@ -54,7 +53,6 @@ const getData = async () => {
 
   formData.mode = data.find((e) => e.key == "mode").value;
   formData.port = data.find((e) => e.key == "port").value;
-  formData.client_path = data.find((e) => e.key == "client-path").value;
 };
 
 const handleSubmitClick = async () => {
@@ -63,7 +61,6 @@ const handleSubmitClick = async () => {
   let datas = [
     { group: "system", key: "mode", value: formData.mode },
     { group: "system", key: "port", value: formData.port },
-    { group: "system", key: "client-path", value: formData.client_path },
   ];
 
   await apiSetSystemSettings(datas);

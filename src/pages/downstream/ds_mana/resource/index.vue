@@ -1,0 +1,1 @@
+<template>资源管理</template>

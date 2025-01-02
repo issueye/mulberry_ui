@@ -44,7 +44,7 @@ export function useTabList() {
     })
 
     const changeTab = (t) => {
-        console.log('tab change ->', route.path);
+        // console.log('tab change ->', route.path);
         activeTab.value = t
         router.push(t)
     }
@@ -87,6 +87,7 @@ export function useTabList() {
         // 过滤只剩下首页和当前激活
         tabList.value = tabList.value.filter(tab => tab.path == "/home" || tab.path == path)
         cookie.set("tabList", tabList.value)
+        router.push(path)
     }
 
     const handleClose = (c) => {

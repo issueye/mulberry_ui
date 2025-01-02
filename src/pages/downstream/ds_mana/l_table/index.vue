@@ -62,12 +62,6 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <!-- <el-dropdown-item
-                  :command="{ data: scope.row, type: 'gzip' }"
-                  >{{
-                    scope.row.use_gzip ? "停用GZIP" : "使用GZIP"
-                  }}</el-dropdown-item
-                > -->
                 <el-dropdown-item :command="{ data: scope.row, type: 'reload' }"
                   >重载</el-dropdown-item
                 >
