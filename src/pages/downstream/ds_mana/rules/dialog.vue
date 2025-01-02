@@ -132,6 +132,7 @@ const props = defineProps({
         port: 0, // 端口号
         target_id: 0, // 目标服务
         target_route: "", // 目标路由
+        status: true, // 状态
         name: "", // 名称
         method: "", // 请求方法
         order: 0, // 排序

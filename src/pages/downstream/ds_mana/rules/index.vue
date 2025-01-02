@@ -173,6 +173,7 @@ const formData = reactive({
   port: 0, // 端口号
   target_id: "", // 目标服务
   target_route: "", // 目标路由
+  status: true, // 状态
   is_ws: false, // 是否是WEBSOCKET
   order: 0, // 排序
   name: "", // 名称
@@ -231,6 +232,7 @@ const setValue = (value) => {
   formData.method = value.method;
   formData.target_id = value.target_id;
   formData.target_route = value.target_route;
+  formData.status = value.status;
   formData.order = value.order;
   formData.is_ws = value.is_ws;
   formData.remark = value.remark;
@@ -243,6 +245,7 @@ const resetValue = () => {
   formData.method = "";
   formData.target_id = "";
   formData.target_route = "";
+  formData.status = true;
   formData.order = 0;
   formData.is_ws = false;
   formData.remark = "";

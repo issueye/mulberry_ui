@@ -68,15 +68,6 @@
             />
           </el-form-item>
         </el-col>
-        <!-- <el-col :span="12">
-          <el-form-item label="版本路由" prop="use_version_route">
-            <el-switch
-              v-model="formData.use_version_route"
-              :active-value="1"
-              :inactive-value="0"
-            />
-          </el-form-item>
-        </el-col> -->
       </el-row>
 
       <el-form-item label="备注">

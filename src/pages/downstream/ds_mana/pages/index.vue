@@ -162,12 +162,6 @@ const columns = [
     attrs: { width: 250, showOverflowTooltip: true },
   },
   {
-    prop: "use_version_route",
-    label: "版本路由",
-    slot: true,
-    attrs: { width: 100, showOverflowTooltip: true },
-  },
-  {
     prop: "remark",
     label: "备注",
     attrs: { minWidth: 150, showOverflowTooltip: true },
