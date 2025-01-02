@@ -164,7 +164,7 @@ const columns = [
     prop: "operation",
     label: "操作",
     slot: true,
-    attrs: { width: 180, fixed: "right" },
+    attrs: { width: 180, fixed: "right" }, 
   },
 ];
 

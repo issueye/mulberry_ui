@@ -28,7 +28,7 @@ export const useUserStore = defineStore(
 
         // 展开/缩起侧边
         function handleAsideWidth() {
-            asideWidth.value = asideWidth.value === global.CARAMBOLA_MENU_WIDTH ? '64px' : global.CARAMBOLA_MENU_WIDTH
+            asideWidth.value = asideWidth.value === global.CARAMBOLA_MENU_WIDTH ? global.CARAMBOLA_MENU_COLLAPSE_WIDTH : global.CARAMBOLA_MENU_WIDTH
         }
 
         // 设置菜单
