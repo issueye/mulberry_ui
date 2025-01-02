@@ -7,8 +7,14 @@
       class="flex"
       :style="{ height: `calc(100% - ${global.CARAMBOLA_HEADER_HEIGHT})` }"
     >
-      <el-aside :width="userStore.asideWidth" class="shadow">
-        <f-menu></f-menu>
+      <el-aside :width="userStore.asideWidth" class="h-full flex flex-col shadow">
+        <div style="height:calc(100% - 40px)">
+          <f-menu></f-menu>
+        </div>
+        <div v-if="userStore.asideWidth === global.CARAMBOLA_MENU_WIDTH" 
+          class="h-[38px] w-full text-sm text-gray-400 font-semibold subpixel-antialiased flex items-center">
+          <span class="ml-4">版本：</span> <span>{{ global.APP_VERSION }}</span>
+        </div>
       </el-aside>
       <div
         class="h-full flex flex-col bg-gray-100"
@@ -42,7 +48,7 @@ const userStore = useUserStore(); // 使用 Pinia store
 
 <style scoped>
 .el-aside {
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 
 .fade-enter-from {

@@ -1,25 +1,18 @@
 <template>
-  <div class="h-full flex flex-col">
-    <div
-      class="h-[40px] p-2 flex justify-between items-center bg-white rounded-sm shadow"
-    >
+  <div class="h-full flex flex-col rounded-sm shadow">
+    <div class="h-[40px] p-2 flex justify-between items-center bg-white">
       <div class="flex items-end px-3">
         <h2 class="text-xl font-bold mr-2">{{ props.title }}</h2>
         <p class="text-gray-300">{{ props.desc }}</p>
       </div>
       <slot name="actions"></slot>
     </div>
-    <div
-      class="h-[calc(100%-40px)] mt-2 bg-white rounded-sm shadow"
-      :style="{ padding: props.padding }"
-    >
+    <div class="h-[calc(100%-40px)] bg-white" :style="{ padding: props.padding, borderTop: '1px solid #e9e9e9' }">
       <slot name="content"></slot>
     </div>
   </div>
 </template>
 <script setup>
-import { ref, reactive, onMounted } from "vue";
-
 const props = defineProps({
   title: {
     type: String,

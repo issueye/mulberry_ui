@@ -44,7 +44,7 @@ export function useTabList() {
     })
 
     const changeTab = (t) => {
-        console.log(route.path);
+        console.log('tab change ->', route.path);
         activeTab.value = t
         router.push(t)
     }
@@ -71,21 +71,30 @@ export function useTabList() {
         router.push(a)
     }
 
+    const removeAll = () => {
+        // 切换回首页
+        activeTab.value = "/home"
+        // 过滤只剩下首页
+        tabList.value = [{
+            title: '后台首页',
+            path: "/home"
+        }]
+        router.push("/home")
+        cookie.set("tabList", tabList.value)
+    }
+
+    const removeOther = (path) => {
+        // 过滤只剩下首页和当前激活
+        tabList.value = tabList.value.filter(tab => tab.path == "/home" || tab.path == path)
+        cookie.set("tabList", tabList.value)
+    }
+
     const handleClose = (c) => {
         if (c == "clearAll") {
-            // 切换回首页
-            activeTab.value = "/home"
-            // 过滤只剩下首页
-            tabList.value = [{
-                title: '后台首页',
-                path: "/home"
-            }]
-            router.push("/home")
+            removeAll()
         } else if (c == "clearOther") {
-            // 过滤只剩下首页和当前激活
-            tabList.value = tabList.value.filter(tab => tab.path == "/home" || tab.path == activeTab.value)
+            removeOther(activeTab.value)
         }
-        cookie.set("tabList", tabList.value)
     }
 
     return {
@@ -93,6 +102,8 @@ export function useTabList() {
         tabList,
         changeTab,
         removeTab,
+        removeAll,
+        removeOther,
         handleClose
     }
 }

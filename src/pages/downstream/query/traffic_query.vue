@@ -56,24 +56,9 @@
                 <el-button
                   type="primary"
                   link
-                  @click="handleEditClick(scope.row)"
-                  >编辑</el-button
+                  @click="handleCopyClick(scope.row)"
+                  >复制</el-button
                 >
-                <el-divider direction="vertical" />
-                <el-dropdown @command="handleCommand">
-                  <span class="flex items-center text-[--el-color-primary]">
-                    更多<el-icon class="el-icon--right"><arrow-down /></el-icon>
-                  </span>
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item
-                        :command="{ data: scope.row, type: 'del' }"
-                        class="text-[--el-color-danger]"
-                        >删除</el-dropdown-item
-                      >
-                    </el-dropdown-menu>
-                  </template>
-                </el-dropdown>
               </template>
             </d-table>
           </div>
@@ -90,6 +75,8 @@ import { toast } from "~/composables/util";
 import { storeToRefs } from "pinia";
 import { useProxyStore } from "~/store/proxy";
 
+import { copyText } from "vue3-clipboard";
+
 const proxyStore = useProxyStore();
 const { methods } = storeToRefs(proxyStore);
 
@@ -99,7 +86,6 @@ const queryParams = reactive({
 });
 
 const loading = ref(false);
-const operationType = ref(0); // 0:新增 1:编辑
 
 /**
  * 获取表格数据
@@ -145,6 +131,12 @@ const columns = [
     slot: true,
     attrs: { minWidth: 200, showOverflowTooltip: true },
   },
+  {
+    prop: "operation",
+    label: "操作",
+    slot: true,
+    attrs: { width: 80, fixed: "right" },
+  },
 ];
 
 /**
@@ -181,11 +173,12 @@ const getMethod = (value) => {
   return list.find((item) => item.value === value);
 };
 
-const handleCommand = ({ data, type }) => {
-  if (type === "del") {
-    handleDeleteClick(data);
-  }
-};
+const handleCopyClick = (data) => {
+  let str = data.response.body;
+  copyText(str, undefined, () => {
+    toast("复制成功");
+  });
+}
 
 /**
  * 查询数据
