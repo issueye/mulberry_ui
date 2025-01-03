@@ -13,13 +13,6 @@
         placeholder="请输入服务端口号"
       />
     </el-form-item>
-    <el-form-item label="客户端路径">
-      <el-input
-        v-model="formData.client_path"
-        :disabled="disabled"
-        placeholder="客户端路径"
-      />
-    </el-form-item>
   </el-form>
   <div>
     <el-button @click="disabled = true" v-if="!disabled">取消</el-button>

@@ -164,21 +164,23 @@ const columns = [
     prop: "operation",
     label: "操作",
     slot: true,
-    attrs: { width: 180, fixed: "right" }, 
+    attrs: { width: 180, fixed: "right" },
   },
 ];
 
 const formData = reactive({
-  id: 0, // ID
-  port: 0, // 端口号
-  target_id: "", // 目标服务
-  target_route: "", // 目标路由
-  status: true, // 状态
-  is_ws: false, // 是否是WEBSOCKET
-  order: 0, // 排序
-  name: "", // 名称
-  method: "", // 请求方法
-  remark: "", // 备注
+  id: 0,
+  port: 0,
+  target_id: 0,
+  target_route: "",
+  status: true,
+  name: "",
+  method: "",
+  order: 0,
+  is_ws: false,
+  remark: "",
+  match_type: 0, // 匹配类型 (0: 精确匹配, 1: 前缀匹配, 2: 正则匹配, 3: 通配符匹配)
+  headers: [], // Header 匹配规则
 });
 
 /**
@@ -236,6 +238,8 @@ const setValue = (value) => {
   formData.order = value.order;
   formData.is_ws = value.is_ws;
   formData.remark = value.remark;
+  formData.match_type = value.match_type;
+  formData.headers = value.headers;
 };
 
 const resetValue = () => {
@@ -249,6 +253,8 @@ const resetValue = () => {
   formData.order = 0;
   formData.is_ws = false;
   formData.remark = "";
+  formData.match_type = 0;
+  formData.headers = [];
 };
 
 const getMethod = (value) => {

@@ -18,9 +18,16 @@ export const useProxyStore = defineStore(
             { label: "GET", value: "GET", type: "primary" },
             { label: "POST", value: "POST", type: "success" },
             { label: "PUT", value: "PUT", type: "warning" },
+            { label: "PATCH", value: "PATCH", type: "warning" },
             { label: "DELETE", value: "DELETE", type: "danger" },
             { label: "ANY", value: "ANY", type: "info" },
         ]);
+
+        const matchTypes = ref([
+            { label: "精确匹配", value: 0 },
+            { label: "前缀匹配", value: 1 },
+            { label: "正则匹配", value: 2 },
+        ])
 
         const types = ref([
             { label: "路径", value: 1, type: "primary" },
@@ -77,6 +84,7 @@ export const useProxyStore = defineStore(
             ruleList,
             GZList,
             methods,
+            matchTypes,
             types,
 
             getData,
