@@ -3,10 +3,12 @@ import { logout, updatepassword } from "~/api/manager"
 import { showModal, toast } from "~/composables/util"
 import { useRouter } from "vue-router"
 import { useUserStore } from '~/store' // 导入 Pinia store
+import { useCookies } from '@vueuse/integrations/useCookies'
 
 export function useRepassword() {
     const router = useRouter()
     const userStore = useUserStore() // 使用 Pinia store
+
 
     // 修改密码
     const formDrawerRef = ref(null)
@@ -76,13 +78,18 @@ export function useRepassword() {
 export function useLogout() {
     const router = useRouter()
     const userStore = useUserStore() // 使用 Pinia store
+    const cookie = useCookies()
 
     function handleLogout() {
         showModal("是否要退出登录？").then(res => {
             logout().finally(() => {
                 userStore.logoutUser() // 使用 Pinia store 的 action
+                // 清空所有缓存页面
+                cookie.remove("tabList")
+                
                 // 跳转回登录页
-                router.push("/login")
+                router.push("/login");
+                
                 // 提示退出登录成功
                 toast("退出登录成功")
             })

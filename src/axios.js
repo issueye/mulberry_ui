@@ -3,8 +3,9 @@ import { toast } from '~/composables/util'
 import { getToken } from '~/composables/auth'
 import { useUserStore } from '~/store' // 导入 Pinia store
 
+
 const service = axios.create({
-    // baseURL: 'http://192.168.224.223:6678', // 指向后端服务器
+    baseURL: import.meta.env.VITE_B_URL, // 指向后端服务器
     timeout: 8000,
 });
 

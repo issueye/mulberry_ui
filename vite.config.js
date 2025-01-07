@@ -19,10 +19,10 @@ export default defineConfig({
     port: 3000, // 设置为 3002
     host: '0.0.0.0',
     proxy: {
-      '/api': {
+      '/mulberry/api': {
         target: 'http://0.0.0.0:6678',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/api')
+        rewrite: (path) => path.replace(/^\/mulberry\/api/, '/api')
       },
       '/static': {
         target: 'http://0.0.0.0:6678',
