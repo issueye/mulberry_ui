@@ -38,7 +38,7 @@ export const useProxyStore = defineStore(
         const getData = async () => {
             await getPages();
             await getRules();
-            await getGZIPFilters();
+            // await getGZIPFilters();
         }
 
         const getPages = async () => {
@@ -73,7 +73,7 @@ export const useProxyStore = defineStore(
                     port: selectPort.value,
                 }
             };
-            let res = await apiGetGzipFilterList();
+            let res = await apiGetGzipFilterList(params);
             GZList.value = res.list;
         }
 
