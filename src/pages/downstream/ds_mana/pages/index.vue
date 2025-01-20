@@ -30,68 +30,71 @@
         >
       </div>
 
-      <div class="grow w-full">
-        <d-table
-          :columns="columns"
-          :table-data="pageList"
-          :page-config="pageConfig"
-          usePagination
-          highlight-current-row
-          stripe
-          :loading="loading"
-          empty-text="暂无数据"
+      <div class="grow flex flex-wrap">
+        <!-- <IndexCard
+          v-for="item in pageList"
+          :key="item.id"
+          :title="item.title"
+          :subtitle="item.name"
+          :badges="[
+            { text: item.version, type: 'info' },
+            { text: item.product_code, type: 'warning' },
+            {
+              text: item.use_version_route ? '使用' : '未使用',
+              type: item.use_version_route ? 'success' : 'danger'
+            },
+            {
+              text: item.status ? '启用' : '停用',
+              type: item.status ? 'success' : 'danger'
+            }
+          ]"
+          :actions="[
+            {
+              icon: 'edit',
+              handler: () => handleEditClick(item)
+            },
+            {
+              icon: item.status ? 'close' : 'check',
+              handler: () => handleModifyStatusClick(item)
+            },
+            {
+              icon: 'more',
+              type: 'dropdown',
+              items: [
+                {
+                  label: '上传',
+                  handler: () => handleUploadClick(item)
+                },
+                {
+                  label: '复制',
+                  handler: () => handleCopyClick(item)
+                },
+                {
+                  label: '删除',
+                  type: 'danger',
+                  handler: () => handleDeleteClick(item)
+                }
+              ]
+            }
+          ]"
         >
-          <template #use_version_route="{ scope }">
-            <el-tag
-              :type="scope.row.use_version_route ? 'success' : 'danger'"
-              size="small"
-            >
-              {{ scope.row.use_version_route ? "使用" : "未使用" }}
-            </el-tag>
+          <template #content>
+            <div class="text-sm text-gray-600">
+              {{ item.remark || '暂无备注' }}
+            </div>
           </template>
-          <template #status="{ scope }">
-            <el-tag
-              :type="scope.row.status ? 'success' : 'danger'"
-              size="small"
-            >
-              {{ scope.row.status ? "启用" : "停用" }}
-            </el-tag>
-          </template>
-          <template #operation="{ scope }">
-            <el-button type="primary" link @click="handleEditClick(scope.row)"
-              >编辑</el-button
-            >
-            <el-divider direction="vertical" />
-            <el-button
-              type="primary"
-              link
-              @click="handleModifyStatusClick(scope.row)"
-              >{{ scope.row.status ? "停用" : "启用" }}</el-button
-            >
-            <el-divider direction="vertical" />
-            <el-dropdown @command="handleCommand">
-              <span class="flex items-center text-[--el-color-primary]">
-                更多<el-icon class="el-icon--right"><arrow-down /></el-icon>
-              </span>
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item
-                    :command="{ data: scope.row, type: 'upload' }"
-                    >上传</el-dropdown-item
-                  >
-                  <el-dropdown-item :command="{ data: scope.row, type: 'copy' }"
-                    >复制</el-dropdown-item
-                  >
-                  <el-dropdown-item
-                    :command="{ data: scope.row, type: 'del' }"
-                    class="text-[--el-color-danger]"
-                    >删除</el-dropdown-item
-                  >
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </template>
-        </d-table>
+        </IndexCard> -->
+        <card v-for="(item, index) in pageList" :data="item" :key="index" />
+      </div>
+      <div class="col-span-full mt-4 flex justify-end">
+        <el-pagination
+          v-model:current-page="pageConfig.currentPage"
+          v-model:page-size="pageConfig.pageSize"
+          :total="pageConfig.total"
+          layout="total, sizes, prev, pager, next, jumper"
+          @current-change="getData"
+          @size-change="getData"
+        />
       </div>
     </div>
 
@@ -114,11 +117,13 @@ import { apiGetPageList, apiDeletePage, apiModifyStatusPage } from "~/api/page";
 import { ref, reactive, onMounted } from "vue";
 import Dialog from "./dialog.vue";
 import UploadDialog from "./upload_dialog.vue";
+import IndexCard from "~/components/IndexCard.vue";
 import { toast } from "~/composables/util";
 import { storeToRefs } from "pinia";
 import { useProxyStore } from "~/store/proxy";
 import { nanoid } from "nanoid";
 import { copyText } from "vue3-clipboard";
+import card from "./card.vue";
 
 const dialog = reactive({
   visible: false,
