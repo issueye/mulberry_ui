@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-[300px] h-[200px] mr-3 flex flex-col border border-solid border-slate-300 rounded shadow hover:shadow-md"
+    class="w-[320px] h-[260px] mr-4 mb-4 flex flex-col border border-solid border-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-out cursor-pointer"
   >
     <div
       class="p-2 flex justify-between"
@@ -20,7 +20,12 @@
         </el-tag>
       </div>
 
-      <el-button link type="primary" size="small">编辑</el-button>
+      <div class="flex items-center gap-2">
+        <div class="text-xs px-2 py-1 bg-blue-50 text-blue-600 rounded-full">
+          {{ data.version }}
+        </div>
+        <el-button link type="primary" size="small">编辑</el-button>
+      </div>
     </div>
     <div class="grow p-2">
       <div>

@@ -47,16 +47,44 @@
 
     <!-- 其他组件 -->
     <IndexNavs />
+
+    <!-- 图表区域 -->
+    <el-row :gutter="20" class="mt-2">
+      <el-col :span="24">
+        <div
+          ref="chartRef"
+          class="h-[400px] p-4 mt-5 rounded shadow bg-white"
+        ></div>
+      </el-col>
+    </el-row>
   </div>
 </template>
   
   <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watchEffect } from "vue";
+import * as echarts from "echarts";
+import { useResizeObserver } from "@vueuse/core";
 import CountTo from "~/components/CountTo.vue";
 import IndexNavs from "~/components/IndexNavs.vue";
 import { apiGetHomeCount } from "~/api";
-
+import { apiGetPortTraffic } from "~/api/port";
 const panels = ref([]);
+const chartRef = ref(null);
+let chartInstance = null;
+
+// 获取端口流量数据
+const getPortTraffic = async () => {
+  const res = await apiGetPortTraffic();
+  const ports = res.data.map((item) => item.port);
+  const traffics = res.data.map((item) => item.traffic);
+
+  if (chartInstance) {
+    chartInstance.setOption({
+      xAxis: { data: ports },
+      series: [{ data: traffics }],
+    });
+  }
+};
 
 const getHomeCount = async () => {
   const res = await apiGetHomeCount();
@@ -92,6 +120,41 @@ const getHomeCount = async () => {
 
 onMounted(() => {
   getHomeCount();
+  getPortTraffic();
+
+  // 初始化图表
+  chartInstance = echarts.init(chartRef.value);
+  chartInstance.setOption({
+    tooltip: {
+      trigger: "axis",
+      axisPointer: { type: "shadow" },
+    },
+    xAxis: {
+      type: "category",
+      name: "端口号",
+      data: [],
+    },
+    yAxis: {
+      type: "value",
+      name: "流量(MB)",
+    },
+    series: [
+      {
+        type: "bar",
+        itemStyle: {
+          color: "#409EFF",
+          borderRadius: [4, 4, 0, 0],
+        },
+        barWidth: "60%",
+        data: [],
+      },
+    ],
+  });
+
+  // 响应式调整图表
+  useResizeObserver(chartRef, () => {
+    chartInstance?.resize();
+  });
 });
 </script>
   

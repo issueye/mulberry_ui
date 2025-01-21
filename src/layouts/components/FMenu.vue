@@ -1,15 +1,16 @@
 <template>
-  <div
-    class="h-full f-menu shadow-md fixed bg-light-50"
-    :style="{ width: userStore.asideWidth }"
-  >
+  <div class="w-full bg-light-50">
     <el-menu
       :default-active="defaultActive"
       unique-opened
       :collapse="isCollapse"
+      mode="horizontal"
       class="border-0"
       @select="handleSelect"
       :collapse-transition="false"
+      background-color="#1661AB"
+      text-color="#fff"
+      active-text-color="#ffd04b"
     >
       <!-- 菜单 -->
       <!-- 遍历数组，:key 属性用于唯一标识数组中的每个元素，帮助 Vue 更高效地追踪和更新 DOM。 -->
@@ -17,7 +18,7 @@
         <!-- 子菜单 -->
         <el-sub-menu
           v-if="item.child && item.child.length > 0"
-          :index="item.name"
+          :index="item.frontpath"
         >
           <!-- 子菜单标题，Vue 会将 <component :is="item.icon"></component> 渲染成指定的 icon 组件，比如 el-icon-home 或 el-icon-user 等，item.icon的属性是一个icon的值 -->
           <template #title>
@@ -27,9 +28,6 @@
             <span>{{ item.name }}</span>
           </template>
 
-          <!-- v-for 指令遍历并渲染 item.child 数组，生成多个 el-menu-item 子菜单项。 -->
-          <!-- key 是 Vue 的内部属性，用于唯一标识 v-for 循环中的每一个元素。
-                    index 是 el-menu-item 组件的属性，并非 Vue 的内部属性。el-menu-item 的 index 属性用于为菜单项设置唯一的标识符，用来在菜单中追踪选中的项目。 -->
           <el-menu-item
             v-for="(item2, index2) in item.child"
             :key="index2"
@@ -78,8 +76,5 @@ const handleSelect = (e) => {
 };
 </script>
 
-<style>
-.f-menu::-webkit-scrollbar {
-  width: 0px;
-}
+<style scoped>
 </style>

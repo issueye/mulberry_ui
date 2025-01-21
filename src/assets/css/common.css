@@ -29,6 +29,7 @@ body {
     --el-dialog-title-font-weight: 600;
     --el-body-padding: 24px;
     --el-body-half-padding: 12px;
+    --el-menu-horizontal-height: 44px;
 }
 
 .el-notification {
@@ -93,8 +94,8 @@ body {
     background-color: var(--el-color-primary-light-7);
 }
 
-.el-sub-menu {
-    border-bottom: 1px solid #d9d9d9;
+.el-menu--horizontal.el-menu {
+    border-bottom: none;
 }
 
 /* switch */
