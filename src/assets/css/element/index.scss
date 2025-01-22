@@ -1,11 +1,10 @@
-/* 只需要重写你需要的即可 */
-@forward 'element-plus/theme-chalk/src/common/var.scss' with ($colors: //
-    ( //
-        'primary': ('base': #1661AB), // 主色  
-        'info': ('base': #04A8D1), // 一般信息
-        'success': ('base': #0B9349), // 成功色
-        'warning': ('base': #F9C004), // 警告色
-        'danger': ('base': #E0321F), // 危险色
-        'error': ('base': #f34718), // 错误色
-    ) //
-)
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+    $colors: (
+        'primary': ('base': #1661AB),
+        'info': ('base': #04A8D1),
+        'success': ('base': #0B9349),
+        'warning': ('base': #F9C004),
+        'danger': ('base': #E0321F),
+        'error': ('base': #f34718),
+    )
+);

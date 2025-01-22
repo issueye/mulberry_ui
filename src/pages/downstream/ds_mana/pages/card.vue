@@ -1,63 +1,114 @@
 <template>
   <div
-    class="w-[320px] h-[260px] mr-4 mb-4 flex flex-col border border-solid border-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-out cursor-pointer"
-  >
-    <div
-      class="p-2 flex justify-between"
-      style="border-bottom: 1px solid #d9d9d9"
-    >
-      <div class="flex items-center">
-        <span class="text-lg font-semibold subpixel-antialiased leading-5">
+    class="w-[300px] h-[200px] mr-4 mb-4 flex flex-col border border-solid border-gray-100 rounded-sm shadow-md hover:shadow-lg transition-all duration-300 ease-out cursor-pointer">
+    <div class="p-4 flex justify-between mb-2">
+      <div class="w-full flex items-center justify-between">
+        <span class="text-xl font-semibold subpixel-antialiased leading-5">
           {{ data.title }}
         </span>
-        <el-tag
-          size="small"
-          :type="data.status ? 'success' : 'danger'"
-          effect="plain"
-          class="ml-2"
-        >
-          {{ data.status ? "启用" : "停用" }}
+        <el-tag class="font-semibold" :type="data.status ? 'success' : 'danger'" size="small" effect="plain"> {{ data.status ? "启用" : "停用" }}
         </el-tag>
       </div>
-
-      <div class="flex items-center gap-2">
-        <div class="text-xs px-2 py-1 bg-blue-50 text-blue-600 rounded-full">
-          {{ data.version }}
-        </div>
-        <el-button link type="primary" size="small">编辑</el-button>
-      </div>
     </div>
-    <div class="grow p-2">
-      <div>
-        <span class="text-xs font-semibold text-slate-300">产品编码：</span>
-        <span class="text-xs">{{ data.product_code }}</span>
-      </div>
-      <div>
-        <span class="text-xs font-semibold text-slate-300">产品名称：</span>
+    <div class="grow px-4">
+      <div class="w-full mb-1 flex items-center justify-between">
+        <span class="text-sm font-semibold text-slate-500 tracking-wide">名　称：</span>
         <span class="text-xs">{{ data.name }}</span>
       </div>
-      <div>
-        <span class="text-lg font-semibold text-slate-500">产品版本：</span>
+      <div class="w-full my-1 flex items-center justify-between">
+        <span class="text-sm font-semibold text-slate-500 tracking-wide">版　本：</span>
+        <span class="text-xs">{{ data.version }}</span>
+      </div>
+      <div class="w-full my-1 flex items-center justify-between">
+        <span class="text-sm font-semibold text-slate-500 tracking-wide">唯一码：</span>
+        <span class="text-xs">{{ data.product_code }}</span>
       </div>
     </div>
-    <div class="flex justify-end p-2">
-      <el-button link type="danger" size="small">删除</el-button>
+    <div class="flex justify-end p-4">
+      <el-dropdown split-button type="primary" @click="handleEditClick">
+        <el-icon class="mr-2">
+          <component is="edit"></component>
+        </el-icon>
+        编辑
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="handleUploadClick">
+              <el-icon class="mr-2">
+                <component is="upload"></component>
+              </el-icon>
+              上传
+            </el-dropdown-item>
+            <el-dropdown-item @click="handleCopyClick">
+              <el-icon class="mr-2">
+                <component is="DocumentCopy"></component>
+              </el-icon>
+              复制
+            </el-dropdown-item>
+            <el-dropdown-item class="text-danger-500" @click="handleDeleteClick">
+              <el-icon class="mr-2">
+                <component is="delete"></component>
+              </el-icon>
+              删除
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
 <script setup>
 import { toRefs } from "vue";
+import { apiGetPageList, apiDeletePage, apiModifyStatusPage } from "~/api/page";
 
 const props = defineProps({
   data: {
     type: Object,
     default: () => {
       return {
-        title: "",
+        id: 0, // ID
+        name: "", // 名称
+        title: "", // 标题
+        version: "", // 版本号
+        port: 0, // 端口号
+        product_code: "", // 产品编码
+        use_version_route: false, // 是否使用版本路由
+        status: false, // 状态
+        remark: "", // 备注
       };
     },
   },
 });
 
+const emits = defineEmits(["edit", "upload", "delete", "copy"]);
+
 const { data } = toRefs(props);
+
+const setValue = (value) => {
+  formData.id = value.id;
+  formData.name = value.name;
+  formData.title = value.title;
+  formData.version = value.version;
+  formData.port = value.port;
+  formData.product_code = value.product_code;
+  formData.use_version_route = value.use_version_route;
+  formData.status = value.status;
+  formData.remark = value.remark;
+};
+
+const handleDeleteClick = async () => {
+  emits("delete", data.value);
+};
+
+const handleEditClick = async () => {
+  emits("edit", data.value);
+};
+
+const handleUploadClick = async () => {
+  emits("upload", data.value);
+};
+
+const handleCopyClick = async () => {
+  emits("copy", data.value);
+};
+
 </script>

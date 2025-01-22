@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-header-500 flex items-center justify-end">
+  <div class="min-h-screen bg-primary-500 flex items-center justify-end">
     <div class="w-[400px] mr-60" style="position: relative">
       <el-image :src="SLImage" class="flower-img w-[300px] h-[500px]" />
       <el-card class="w-[400px] h-[250px] p-8 bg-white shadow rounded-sm">

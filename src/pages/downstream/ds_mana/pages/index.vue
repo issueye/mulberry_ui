@@ -1,114 +1,53 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full flex flex-col">
     <div class="search-bar">
       <el-form ref="queryFormRef" :model="queryParams" :inline="true">
         <el-form-item label="关键字" prop="keywords" label-position="left">
-          <el-input
-            v-model="queryParams.keywords"
-            placeholder="名称/编码"
-            clearable
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.keywords" placeholder="名称/编码" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="search" @click="handleQuery"
-            >搜索</el-button
-          >
+          <el-button type="primary" icon="search" @click="handleQuery">搜索</el-button>
           <el-button icon="refresh" @click="handleResetQuery">重置</el-button>
         </el-form-item>
       </el-form>
+      <div class="mb-4">
+        <el-button type="success" :disabled="indexPort === 0" icon="plus" @click="handleAddClick">新增</el-button>
+      </div>
     </div>
 
-    <div class="grow flex flex-col">
-      <div class="mb-[10px]">
-        <el-button
-          type="success"
-          :disabled="indexPort === 0"
-          icon="plus"
-          @click="handleAddClick"
-          >新增</el-button
-        >
-      </div>
-
-      <div class="grow flex flex-wrap">
-        <!-- <IndexCard
-          v-for="item in pageList"
-          :key="item.id"
-          :title="item.title"
-          :subtitle="item.name"
-          :badges="[
-            { text: item.version, type: 'info' },
-            { text: item.product_code, type: 'warning' },
-            {
-              text: item.use_version_route ? '使用' : '未使用',
-              type: item.use_version_route ? 'success' : 'danger'
-            },
-            {
-              text: item.status ? '启用' : '停用',
-              type: item.status ? 'success' : 'danger'
-            }
-          ]"
-          :actions="[
-            {
-              icon: 'edit',
-              handler: () => handleEditClick(item)
-            },
-            {
-              icon: item.status ? 'close' : 'check',
-              handler: () => handleModifyStatusClick(item)
-            },
-            {
-              icon: 'more',
-              type: 'dropdown',
-              items: [
-                {
-                  label: '上传',
-                  handler: () => handleUploadClick(item)
-                },
-                {
-                  label: '复制',
-                  handler: () => handleCopyClick(item)
-                },
-                {
-                  label: '删除',
-                  type: 'danger',
-                  handler: () => handleDeleteClick(item)
-                }
-              ]
-            }
-          ]"
-        >
-          <template #content>
-            <div class="text-sm text-gray-600">
-              {{ item.remark || '暂无备注' }}
-            </div>
-          </template>
-        </IndexCard> -->
-        <card v-for="(item, index) in pageList" :data="item" :key="index" />
-      </div>
-      <div class="col-span-full mt-4 flex justify-end">
-        <el-pagination
-          v-model:current-page="pageConfig.currentPage"
-          v-model:page-size="pageConfig.pageSize"
-          :total="pageConfig.total"
-          layout="total, sizes, prev, pager, next, jumper"
-          @current-change="getData"
-          @size-change="getData"
+    <div class="flex flex-col" style="height: calc(100% - 100px);">
+      <div class="h-full overflow-y-auto">
+        <div class="flex flex-wrap">
+        <card v-for="(item, index) in pageList" 
+        :data="item" 
+        :key="index" 
+        @delete="handleDeleteClick" 
+        @edit="handleEditClick" 
+        @upload="handleUploadClick"
+        @copy="handleCopyClick"
         />
       </div>
+      </div>
+      <div class="mt-4 flex justify-end items-center">
+          <div class="h-full flex justify-between items-center">
+        <div class="text-gray-500 mr-2">总共 {{ pageConfig.total }} 条信息</div>
+        <el-pagination
+          size="small"
+          v-model:current-page="pageConfig.currentPage"
+          background
+          layout="prev, pager, next"
+          :page-size="pageConfig.pageSize"
+          :total="pageConfig.total"
+          @current-change="pageConfig.qryData"
+        />
+      </div>
+      </div>
     </div>
 
-    <Dialog
-      v-model:visible="dialog.visible"
-      v-model:form-data="formData"
-      :operation-type="operationType"
-      @close="handleDialogClose"
-    />
+    <Dialog v-model:visible="dialog.visible" v-model:form-data="formData" :operation-type="operationType"
+      @close="handleDialogClose" />
 
-    <UploadDialog
-      v-model:visible="dialog.upload_visible"
-      v-model:form-data="formData"
-    />
+    <UploadDialog v-model:visible="dialog.upload_visible" v-model:form-data="formData" />
   </div>
 </template>
 
@@ -117,7 +56,6 @@ import { apiGetPageList, apiDeletePage, apiModifyStatusPage } from "~/api/page";
 import { ref, reactive, onMounted } from "vue";
 import Dialog from "./dialog.vue";
 import UploadDialog from "./upload_dialog.vue";
-import IndexCard from "~/components/IndexCard.vue";
 import { toast } from "~/composables/util";
 import { storeToRefs } from "pinia";
 import { useProxyStore } from "~/store/proxy";
@@ -142,49 +80,6 @@ const queryParams = reactive({
 const loading = ref(false);
 const operationType = ref(0); // 0:新增 1:编辑
 
-/**
- * 表格信息
- */
-const columns = [
-  {
-    prop: "title",
-    label: "标题",
-    attrs: { width: 200, showOverflowTooltip: true },
-  },
-  {
-    prop: "name",
-    label: "名称",
-    attrs: { width: 200, showOverflowTooltip: true, fixed: "left" },
-  },
-  {
-    prop: "version",
-    label: "版本",
-    attrs: { width: 150, showOverflowTooltip: true },
-  },
-  {
-    prop: "product_code",
-    label: "产品编码",
-    attrs: { width: 250, showOverflowTooltip: true },
-  },
-  {
-    prop: "remark",
-    label: "备注",
-    attrs: { minWidth: 150, showOverflowTooltip: true },
-  },
-  {
-    prop: "status",
-    label: "状态",
-    slot: true,
-    attrs: { width: 70, fixed: "right" },
-  },
-  {
-    prop: "operation",
-    label: "操作",
-    slot: true,
-    attrs: { width: 180, fixed: "right" },
-  },
-];
-
 const formData = reactive({
   id: 0, // ID
   name: "", // 名称
@@ -204,6 +99,9 @@ const pageConfig = reactive({
   pageSize: 10,
   currentPage: 1,
   total: 0,
+  qryData: () => {
+    getData();
+  }
 });
 
 /**
@@ -237,6 +135,7 @@ const handleAddClick = () => {
  * @param value 信息
  */
 const handleEditClick = (value) => {
+  console.log('value', value);
   operationType.value = 1;
   setValue(value);
   dialog.visible = true;
@@ -311,7 +210,6 @@ const handleUploadClick = (value) => {
  * @param value
  */
 const handleCopyClick = (data) => {
-  console.log("value", data);
   let port = data.port;
   let name = data.name;
   let use_version_route = data.use_version_route;

@@ -39,7 +39,7 @@
                 {{ scope.row.request.time }}
               </template>
               <template #method="{ scope }">
-                <el-tag :type="getMethod(scope.row.request.method).type">{{
+                <el-tag :type="getMethod(scope.row.request.method).type" size="small" effect="plain">{{
                   scope.row.request.method
                 }}</el-tag>
               </template>

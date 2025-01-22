@@ -7,7 +7,7 @@
       </div>
       <slot name="actions"></slot>
     </div>
-    <div class="h-[calc(100%-40px)] bg-white" :style="{ padding: props.padding, borderTop: '1px solid #e9e9e9' }">
+    <div class=" bg-white" :style="{ height: 'calc(100% - 46px)', padding: props.padding, borderTop: '1px solid #e9e9e9' }">
       <slot name="content"></slot>
     </div>
   </div>

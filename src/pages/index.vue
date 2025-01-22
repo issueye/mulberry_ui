@@ -74,6 +74,7 @@ let chartInstance = null;
 
 // 获取端口流量数据
 const getPortTraffic = async () => {
+  return;
   const res = await apiGetPortTraffic();
   const ports = res.data.map((item) => item.port);
   const traffics = res.data.map((item) => item.traffic);

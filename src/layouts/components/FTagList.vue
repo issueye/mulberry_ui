@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-100 flex items-center px-2">
-    <el-tabs v-model="activeTab" type="card" class="flex-1" @tab-remove="removeTab" style="min-width: 100px"
+    <el-tabs v-model="activeTab" type="card" @tab-remove="removeTab" style="min-width: 100px"
       @tab-change="changeTab">
       <el-tab-pane v-for="item in tabList" :label="item.title" :key="item.path" :name="item.path"
         :closable="item.path !== '/home'">

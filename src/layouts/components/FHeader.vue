@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center bg-header-500 text-light-50 fixed top-0 left-0 right-0"
+    class="flex items-center bg-primary-500 text-light-50 fixed top-0 left-0 right-0"
     :style="{ height: global.CARAMBOLA_HEADER_HEIGHT }"
   >
     <span
@@ -18,7 +18,7 @@
     <!-- 这个代码创建了一个带有“刷新”功能的图标按钮，当用户将鼠标悬停在按钮上时，会显示提示文字“刷新”，并且按钮在被点击时会触发 handleRefresh 方法，通常用于刷新页面或数据。 -->
     <el-tooltip effect="dark" content="刷新" placement="bottom">
       <el-icon
-        class="w-[42px] flex justify-center items-center text-xl font-thin text-white hover:bg-header-600"
+        class="w-[42px] flex justify-center items-center text-xl font-thin text-white hover:bg-primary-600"
         :style="{ height: global.CARAMBOLA_HEADER_HEIGHT }"
         @click="handleRefresh"
       >
@@ -35,7 +35,7 @@
     <div class="flex items-center">
       <el-tooltip effect="dark" content="全屏" placement="bottom">
         <el-icon
-          class="w-[42px] flex justify-center items-center text-xl font-thin text-white hover:bg-header-600 mr-1"
+          class="w-[42px] flex justify-center items-center text-xl font-thin text-white hover:bg-primary-600 mr-1"
           :style="{ height: global.CARAMBOLA_HEADER_HEIGHT }"
           @click="toggle"
         >

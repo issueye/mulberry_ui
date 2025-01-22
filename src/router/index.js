@@ -11,6 +11,7 @@ import NotFound from '~/pages/404.vue'
 import User from '~/pages/system/user/index.vue';
 import Role from '~/pages/system/role/index.vue';
 import Menu from '~/pages/system/menu/index.vue';
+import DictMana from '~/pages/system/dict_mana/index.vue';
 import Setting from '~/pages/system/setting/index.vue';
 
 import DSMana from '~/pages/downstream/ds_mana/index.vue';
@@ -39,6 +40,7 @@ const asyncRoutes = [
     { path: "/system/user", name: "user", component: User, meta: { title: "用户管理" } },
     { path: "/system/role", name: "role", component: Role, meta: { title: "角色管理" } },
     { path: "/system/menu", name: "menu", component: Menu, meta: { title: "菜单管理" } },
+    { path: "/system/dict_mana", name: "dict_mana", component: DictMana, meta: { title: "字典管理" } },
     { path: "/system/setting", name: "setting", component: Setting, meta: { title: "系统设置" } },
 ]
 

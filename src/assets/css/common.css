@@ -30,6 +30,42 @@ body {
     --el-body-padding: 24px;
     --el-body-half-padding: 12px;
     --el-menu-horizontal-height: 44px;
+
+    /* 主题颜色 */
+    --el-color-primary: #3366FF;
+    --el-color-primary-light-3: #3366FF;
+    --el-color-primary-light-5: #6690FF;
+    --el-color-primary-light-7: #84A9FF;
+    --el-color-primary-light-8: #ADC8FF;
+    --el-color-primary-light-9: #D6E4FF;
+
+    --el-color-success: #29B14B;
+    --el-color-success-light-3: #29B14B;
+    --el-color-success-light-5: #39CE50;
+    --el-color-success-light-7: #67E16E;
+    --el-color-success-light-8: #8BF088;
+    --el-color-success-light-9: #BAFAB1;
+
+    --el-color-warning: #FFB50A;
+    --el-color-warning-light-3: #FFB50A;
+    --el-color-warning-light-5: #FFCD47;
+    --el-color-warning-light-7: #FFDB6C;
+    --el-color-warning-light-8: #FFEA9C;
+    --el-color-warning-light-9: #FFF6CE;
+
+    --el-color-danger: #FF4235;
+    --el-color-danger-light-3: #FF4235;
+    --el-color-danger-light-5: #FF7D67;
+    --el-color-danger-light-7: #FFA185;
+    --el-color-danger-light-8: #FFC7AE;
+    --el-color-danger-light-9: #FDE2CF;
+
+    --el-color-info: #3FD5FF;
+    --el-color-info-light-3: #3FD5FF;
+    --el-color-info-light-5: #6FEAFF;
+    --el-color-info-light-7: #8BF6FF;
+    --el-color-info-light-8: #B2FFFE;
+    --el-color-info-light-9: #D8FFFC;
 }
 
 .el-notification {

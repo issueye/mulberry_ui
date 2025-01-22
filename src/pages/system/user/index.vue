@@ -42,7 +42,7 @@
               empty-text="暂无数据"
             >
               <template #role="{ scope }">
-                <el-tag>
+                <el-tag size="small" effect="plain">
                   {{ getRoleName(scope.row.UserRole.role_code) }}
                 </el-tag>
               </template>

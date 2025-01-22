@@ -36,11 +36,11 @@
         <template #port="{ scope }">
           <div class="flex items-center">
             <span class="mr-2">{{ scope.row.port }}</span>
-            <el-tag type="danger" v-if="scope.row.use_gzip">GZIP</el-tag>
+            <el-tag size="small" effect="plain" type="danger" v-if="scope.row.use_gzip">GZIP</el-tag>
           </div>
         </template>
         <template #status="{ scope }">
-          <el-tag :type="scope.row.status ? 'success' : 'danger'">
+          <el-tag size="small" effect="plain" :type="scope.row.status ? 'success' : 'danger'">
             {{ scope.row.status ? "启用" : "停用" }}
           </el-tag>
         </template>

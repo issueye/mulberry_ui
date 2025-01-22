@@ -44,18 +44,18 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      resolvers: [ElementPlusResolver({
-        importStyle: 'sass'
-      })],
+      resolvers: [
+        ElementPlusResolver({ importStyle: 'sass' })
+      ],
     }),
   ],
 
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `
-          @use "~/assets/css/element/index.scss" as *;
-        `,
+        // api: 'modern-compiler',
+        silenceDeprecations: ['legacy-js-api'],
+        additionalData: `@use "~/assets/css/element/index.scss" as *;`,
       }
     }
   }

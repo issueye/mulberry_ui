@@ -5,12 +5,12 @@
       unique-opened
       :collapse="isCollapse"
       mode="horizontal"
-      class="border-0"
+      class="border-0 bg-header-500"
       @select="handleSelect"
       :collapse-transition="false"
-      background-color="#1661AB"
       text-color="#fff"
-      active-text-color="#ffd04b"
+      active-text-color="#fff"
+      background-color="#3366FF"
     >
       <!-- 菜单 -->
       <!-- 遍历数组，:key 属性用于唯一标识数组中的每个元素，帮助 Vue 更高效地追踪和更新 DOM。 -->

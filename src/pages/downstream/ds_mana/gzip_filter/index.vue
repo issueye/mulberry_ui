@@ -37,12 +37,12 @@
         empty-text="暂无数据"
       >
         <template #match_type="{ scope }">
-          <el-tag :type="getType(scope.row.match_type).type">
+          <el-tag size="small" :type="getType(scope.row.match_type).type" effect="plain">
             {{ getType(scope.row.match_type).label }}
           </el-tag>
         </template>
         <template #status="{ scope }">
-          <el-tag :type="scope.row.status ? 'success' : 'danger'">
+          <el-tag size="small" :type="scope.row.status ? 'success' : 'danger'" effect="plain">
             {{ scope.row.status ? "启用" : "停用" }}
           </el-tag>
         </template>
