@@ -111,7 +111,7 @@
         </el-col>
       </el-row>
 
-      <el-form-item label="Header 匹配">
+      <!-- <el-form-item label="Header 匹配">
         <el-table
           :data="formData.headers"
           style="width: 100%"
@@ -138,7 +138,7 @@
         <el-button type="primary" @click="addHeader" class="mt-2"
           >添加 Header</el-button
         >
-      </el-form-item>
+      </el-form-item> -->
 
       <el-form-item label="备注">
         <el-input
