@@ -45,19 +45,32 @@
             <el-tag type="primary" class="mr-2" size="small" effect="plain">
               {{ scope.row.is_ws ? "WS" : "HTTP" }}://{{ scope.row.port }}
             </el-tag>
-            <el-tag type="warning" class="flex items-center" size="small" effect="plain">
+            <el-tag
+              type="warning"
+              class="flex items-center"
+              size="small"
+              effect="plain"
+            >
               {{ scope.row.name }} <el-icon><CaretRight /></el-icon>
               {{ scope.row.target_route }}
             </el-tag>
           </div>
         </template>
         <template #method="{ scope }">
-          <el-tag :type="getMethod(scope.row.method).type" size="small" effect="plain">
+          <el-tag
+            :type="getMethod(scope.row.method).type"
+            size="small"
+            effect="plain"
+          >
             {{ getMethod(scope.row.method).value }}
           </el-tag>
         </template>
         <template #status="{ scope }">
-          <el-tag :type="scope.row.status ? 'success' : 'danger'" size="small" effect="plain">
+          <el-tag
+            :type="scope.row.status ? 'success' : 'danger'"
+            size="small"
+            effect="plain"
+          >
             {{ scope.row.status ? "启用" : "停用" }}
           </el-tag>
         </template>
@@ -308,7 +321,10 @@ const getData = async () => {
   let params = {
     pageNum: pageConfig.currentPage,
     pageSize: pageConfig.pageSize,
-    condition: queryParams,
+    condition: {
+      keywords: queryParams.keywords,
+      port: selectPort.value,
+    },
   };
 
   loading.value = true;

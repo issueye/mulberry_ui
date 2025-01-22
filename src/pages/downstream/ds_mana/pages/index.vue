@@ -3,51 +3,74 @@
     <div class="search-bar">
       <el-form ref="queryFormRef" :model="queryParams" :inline="true">
         <el-form-item label="关键字" prop="keywords" label-position="left">
-          <el-input v-model="queryParams.keywords" placeholder="名称/编码" clearable @keyup.enter="handleQuery" />
+          <el-input
+            v-model="queryParams.keywords"
+            placeholder="名称/编码"
+            clearable
+            @keyup.enter="handleQuery"
+          />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="search" @click="handleQuery">搜索</el-button>
+          <el-button type="primary" icon="search" @click="handleQuery"
+            >搜索</el-button
+          >
           <el-button icon="refresh" @click="handleResetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <div class="mb-4">
-        <el-button type="success" :disabled="indexPort === 0" icon="plus" @click="handleAddClick">新增</el-button>
+        <el-button
+          type="success"
+          :disabled="indexPort === 0"
+          icon="plus"
+          @click="handleAddClick"
+          >新增</el-button
+        >
       </div>
     </div>
 
-    <div class="flex flex-col" style="height: calc(100% - 100px);">
+    <div class="flex flex-col" style="height: calc(100% - 100px)">
       <div class="h-full overflow-y-auto">
         <div class="flex flex-wrap">
-        <card v-for="(item, index) in pageList" 
-        :data="item" 
-        :key="index" 
-        @delete="handleDeleteClick" 
-        @edit="handleEditClick" 
-        @upload="handleUploadClick"
-        @copy="handleCopyClick"
-        />
-      </div>
+          <card
+            v-for="(item, index) in pageList"
+            :data="item"
+            :key="index"
+            @delete="handleDeleteClick"
+            @edit="handleEditClick"
+            @upload="handleUploadClick"
+            @copy="handleCopyClick"
+          />
+        </div>
       </div>
       <div class="mt-4 flex justify-end items-center">
-          <div class="h-full flex justify-between items-center">
-        <div class="text-gray-500 mr-2">总共 {{ pageConfig.total }} 条信息</div>
-        <el-pagination
-          size="small"
-          v-model:current-page="pageConfig.currentPage"
-          background
-          layout="prev, pager, next"
-          :page-size="pageConfig.pageSize"
-          :total="pageConfig.total"
-          @current-change="pageConfig.qryData"
-        />
-      </div>
+        <div class="h-full flex justify-between items-center">
+          <div class="text-gray-500 mr-2">
+            总共 {{ pageConfig.total }} 条信息
+          </div>
+          <el-pagination
+            size="small"
+            v-model:current-page="pageConfig.currentPage"
+            background
+            layout="prev, pager, next"
+            :page-size="pageConfig.pageSize"
+            :total="pageConfig.total"
+            @current-change="pageConfig.qryData"
+          />
+        </div>
       </div>
     </div>
 
-    <Dialog v-model:visible="dialog.visible" v-model:form-data="formData" :operation-type="operationType"
-      @close="handleDialogClose" />
+    <Dialog
+      v-model:visible="dialog.visible"
+      v-model:form-data="formData"
+      :operation-type="operationType"
+      @close="handleDialogClose"
+    />
 
-    <UploadDialog v-model:visible="dialog.upload_visible" v-model:form-data="formData" />
+    <UploadDialog
+      v-model:visible="dialog.upload_visible"
+      v-model:form-data="formData"
+    />
   </div>
 </template>
 
@@ -101,7 +124,7 @@ const pageConfig = reactive({
   total: 0,
   qryData: () => {
     getData();
-  }
+  },
 });
 
 /**
@@ -135,7 +158,7 @@ const handleAddClick = () => {
  * @param value 信息
  */
 const handleEditClick = (value) => {
-  console.log('value', value);
+  console.log("value", value);
   operationType.value = 1;
   setValue(value);
   dialog.visible = true;
@@ -229,19 +252,6 @@ const handleCopyClick = (data) => {
   });
 };
 
-const handleCommand = ({ data, type }) => {
-  switch (type) {
-    case "del":
-      handleDeleteClick(data);
-      break;
-    case "upload":
-      handleUploadClick(data);
-      break;
-    case "copy":
-      handleCopyClick(data);
-  }
-};
-
 const handleDialogClose = () => {
   getData();
 };
@@ -253,7 +263,10 @@ const getData = async () => {
   let params = {
     pageNum: pageConfig.currentPage,
     pageSize: pageConfig.pageSize,
-    condition: queryParams,
+    condition: {
+      keywords: queryParams.keywords,
+      port: selectPort.value,
+    },
   };
 
   loading.value = true;

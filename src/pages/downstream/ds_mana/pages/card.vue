@@ -1,26 +1,39 @@
 <template>
   <div
-    class="w-[300px] h-[200px] mr-4 mb-4 flex flex-col border border-solid border-gray-100 rounded-sm shadow-md hover:shadow-lg transition-all duration-300 ease-out cursor-pointer">
+    class="w-[300px] h-[200px] mr-4 mb-4 flex flex-col border border-solid border-gray-300 rounded-sm shadow-md hover:shadow-lg transition-all duration-300 ease-out cursor-pointer"
+  >
     <div class="p-4 flex justify-between mb-2">
       <div class="w-full flex items-center justify-between">
         <span class="text-xl font-semibold subpixel-antialiased leading-5">
           {{ data.title }}
         </span>
-        <el-tag class="font-semibold" :type="data.status ? 'success' : 'danger'" size="small" effect="plain"> {{ data.status ? "启用" : "停用" }}
+        <el-tag
+          class="font-semibold"
+          :type="data.status ? 'success' : 'danger'"
+          size="small"
+          effect="plain"
+        >
+          {{ data.status ? "启用" : "停用" }}
         </el-tag>
       </div>
     </div>
     <div class="grow px-4">
       <div class="w-full mb-1 flex items-center justify-between">
-        <span class="text-sm font-semibold text-slate-500 tracking-wide">名　称：</span>
+        <span class="text-sm font-semibold text-slate-500 tracking-wide"
+          >名　称：</span
+        >
         <span class="text-xs">{{ data.name }}</span>
       </div>
       <div class="w-full my-1 flex items-center justify-between">
-        <span class="text-sm font-semibold text-slate-500 tracking-wide">版　本：</span>
+        <span class="text-sm font-semibold text-slate-500 tracking-wide"
+          >版　本：</span
+        >
         <span class="text-xs">{{ data.version }}</span>
       </div>
       <div class="w-full my-1 flex items-center justify-between">
-        <span class="text-sm font-semibold text-slate-500 tracking-wide">唯一码：</span>
+        <span class="text-sm font-semibold text-slate-500 tracking-wide"
+          >唯一码：</span
+        >
         <span class="text-xs">{{ data.product_code }}</span>
       </div>
     </div>
@@ -44,7 +57,10 @@
               </el-icon>
               复制
             </el-dropdown-item>
-            <el-dropdown-item class="text-danger-500" @click="handleDeleteClick">
+            <el-dropdown-item
+              class="text-danger-500"
+              @click="handleDeleteClick"
+            >
               <el-icon class="mr-2">
                 <component is="delete"></component>
               </el-icon>
@@ -58,7 +74,6 @@
 </template>
 <script setup>
 import { toRefs } from "vue";
-import { apiGetPageList, apiDeletePage, apiModifyStatusPage } from "~/api/page";
 
 const props = defineProps({
   data: {
@@ -110,5 +125,4 @@ const handleUploadClick = async () => {
 const handleCopyClick = async () => {
   emits("copy", data.value);
 };
-
 </script>
