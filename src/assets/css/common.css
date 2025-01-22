@@ -126,9 +126,9 @@ body {
 }
 
 /* 菜单 */
-.el-menu-item.is-active {
+/* .el-menu-item.is-active {
     background-color: var(--el-color-primary-light-7);
-}
+} */
 
 .el-menu--horizontal.el-menu {
     border-bottom: none;

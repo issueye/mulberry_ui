@@ -33,21 +33,7 @@ export const useUserStore = defineStore(
 
         // 设置菜单
         function setMenus(menusList) {
-            menus.value = [...menusList]   // 用于将传入的 menusList 参数赋值给 menus 状态。
-            menus.value.push({
-                code: "9911",
-                name: "脚本编辑器",
-                desc: "",
-                frontpath: "/task/script",
-                order: 0,
-                icon: "Place",
-                visible: false,
-                parent_code: "1000",
-                is_have: true,
-                child: null
-            })
-
-            menus.value.push({
+            let home = {
                 code: '0001',
                 name: "首页",
                 desc: "",
@@ -58,9 +44,9 @@ export const useUserStore = defineStore(
                 parent_code: "",
                 is_have: true,
                 child: null
-            })
-
-            asideMenus.value = menusList
+            }
+            menus.value = [home, ...menusList]   // 用于将传入的 menusList 参数赋值给 menus 状态。
+            asideMenus.value = menus.value
         }
 
         // 设置规则名称

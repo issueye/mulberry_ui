@@ -36,9 +36,14 @@
             </div>
             <div class="flex flex-col grow h-full items-center">
               <span class="p-3 text-sm text-gray-400">{{ item.title }}</span>
-              <span class="grow text-3xl font-bold text-gray-500">
-                <CountTo :value="item.value" />
-              </span>
+              <div>
+                <span class="grow text-3xl font-bold text-gray-500">
+                  <CountTo :value="item.value" />
+                </span>
+                <span class="font-bold text-gray-400 ml-2">{{
+                  item.unit
+                }}</span>
+              </div>
             </div>
           </div>
         </el-card>
@@ -49,80 +54,96 @@
     <IndexNavs />
 
     <!-- 图表区域 -->
-    <el-row :gutter="20" class="mt-2">
+    <el-row :gutter="20" class="mt-5">
       <el-col :span="24">
-        <div
-          ref="chartRef"
-          class="h-[400px] p-4 mt-5 rounded shadow bg-white"
-        ></div>
+        <el-card shadow="hover">
+          <template #header>
+            <span>端口流量统计</span>
+          </template>
+          <div ref="chartRef" class="h-[300px]" />
+        </el-card>
       </el-col>
     </el-row>
   </div>
 </template>
   
   <script setup>
-import { onMounted, reactive, ref, watchEffect } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import * as echarts from "echarts";
 import { useResizeObserver } from "@vueuse/core";
 import CountTo from "~/components/CountTo.vue";
 import IndexNavs from "~/components/IndexNavs.vue";
-import { apiGetHomeCount } from "~/api";
 import { apiGetPortTraffic } from "~/api/port";
 const panels = ref([]);
 const chartRef = ref(null);
 let chartInstance = null;
 
+const timer = ref(null);
+
+const getAllTraffic = (item) => {
+  return Math.ceil((item.out_bytes + item.in_bytes) / 1024);
+};
+
+const getOutTraffic = (item) => {
+  return Math.ceil(item.out_bytes / 1024);
+};
+
+const getInTraffic = (item) => {
+  return Math.ceil(item.in_bytes / 1024);
+};
+
 // 获取端口流量数据
 const getPortTraffic = async () => {
-  return;
   const res = await apiGetPortTraffic();
-  const ports = res.data.map((item) => item.port);
-  const traffics = res.data.map((item) => item.traffic);
+  const ports = res.ports;
+  const traffics = res.data.map((item) => getAllTraffic(item));
+  const out_bytes = res.data.map((item) => getOutTraffic(item));
+  const in_bytes = res.data.map((item) => getInTraffic(item));
+
+  setData(res);
 
   if (chartInstance) {
     chartInstance.setOption({
       xAxis: { data: ports },
-      series: [{ data: traffics }],
+      series: [{ data: traffics }, { data: out_bytes }, { data: in_bytes }],
     });
   }
 };
 
-const getHomeCount = async () => {
-  const res = await apiGetHomeCount();
-  console.log("res", res);
-
+const setData = (data) => {
   panels.value = [
     {
-      title: "用户",
+      title: "请求总数",
       color: "text-light-blue-500",
-      icon: "user",
-      value: res.userCount,
+      icon: "Switch",
+      value: data.total_requests,
+      unit: "个",
     },
     {
-      title: "客户端",
+      title: "入栈总流量",
       color: "text-light-blue-500",
-      icon: "message-box",
-      value: res.clientCount,
+      icon: "Bottom",
+      value: data.total_in_bytes / 1024,
+      unit: "mb",
     },
     {
-      title: "数据库",
+      title: "出栈总流量",
       color: "text-violet-500",
-      icon: "grid",
-      value: res.dbCount,
+      icon: "Top",
+      value: data.total_out_bytes / 1024,
+      unit: "mb",
     },
     {
-      title: "任务",
+      title: "总流量",
       color: "text-fuchsia-500",
       icon: "histogram",
-      value: res.taskCount,
+      value: (data.total_in_bytes + data.total_out_bytes) / 1024,
+      unit: "mb",
     },
   ];
 };
 
-onMounted(() => {
-  getHomeCount();
-  getPortTraffic();
-
+const initChart = () => {
   // 初始化图表
   chartInstance = echarts.init(chartRef.value);
   chartInstance.setOption({
@@ -141,12 +162,31 @@ onMounted(() => {
     },
     series: [
       {
+        name: "总流量",
         type: "bar",
         itemStyle: {
           color: "#409EFF",
           borderRadius: [4, 4, 0, 0],
         },
-        barWidth: "60%",
+        barWidth: "20px",
+        data: [],
+      },
+      {
+        name: "出栈流量",
+        type: "bar",
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0],
+        },
+        barWidth: "20px",
+        data: [],
+      },
+      {
+        name: "入栈流量",
+        type: "bar",
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0],
+        },
+        barWidth: "20px",
         data: [],
       },
     ],
@@ -156,6 +196,21 @@ onMounted(() => {
   useResizeObserver(chartRef, () => {
     chartInstance?.resize();
   });
+};
+
+onMounted(() => {
+  // 初始化图标
+  initChart();
+
+  getPortTraffic();
+
+  timer.value = setInterval(() => {
+    getPortTraffic();
+  }, 5 * 1000);
+});
+
+onUnmounted(() => {
+  clearInterval(timer.value);
 });
 </script>
   

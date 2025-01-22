@@ -102,6 +102,24 @@ const columns = [
     attrs: { width: 200, showOverflowTooltip: true, fixed: "left" },
   },
   {
+    prop: "in_bytes",
+    label: "入栈流量(bytes)",
+    slot: true,
+    attrs: { width: 120, showOverflowTooltip: true },
+  },
+  {
+    prop: "out_bytes",
+    label: "出栈流量(bytes)",
+    slot: true,
+    attrs: { width: 120, showOverflowTooltip: true },
+  },
+  {
+    prop: "total_bytes",
+    label: "总流量(bytes)",
+    slot: true,
+    attrs: { width: 120, showOverflowTooltip: true },
+  },
+  {
     prop: "req_time",
     label: "请求时间",
     slot: true,
