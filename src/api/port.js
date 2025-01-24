@@ -45,9 +45,3 @@ export function apiReloadPort(port) {
 export function apiModifyUseGZ(port) {
     return axios.put(`/api/v1/port/use_gz/${port}`);
 }
-
-// apiGetPortTraffic
-// 获取端口流量统计
-export function apiGetPortTraffic() {
-    return axios.get('/api/v1/proxy/port_statistics');
-}

@@ -4,7 +4,7 @@ import {
 } from 'vue-router'
 
 import Admin from "~/layouts/admin.vue";
-import Index from '~/pages/index.vue'
+import Dashboard from '~/pages/dashboard/index.vue'
 import Login from '~/pages/login.vue'
 import NotFound from '~/pages/404.vue'
 
@@ -29,7 +29,7 @@ const routes = [
 
 // 动态路由，用于匹配菜单动态添加路由
 const asyncRoutes = [
-    { path: "/home", name: "home", component: Index, meta: { title: "后台首页" } },
+    { path: "/home", name: "home", component: Dashboard, meta: { title: "后台首页" } },
 
     // 代理管理
     { path: "/downstream/ds_mana", name: "ds_mana", component: DSMana, meta: { title: "代理管理" } },

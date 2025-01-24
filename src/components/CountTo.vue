@@ -10,10 +10,6 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  unit: {
-    type: String,
-    default: "MB",
-  },
 });
 
 const d = reactive({
